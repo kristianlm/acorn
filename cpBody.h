@@ -87,16 +87,16 @@ struct cpBody {
 	/// Maximum rotational rate (in radians/second) allowed when updating the angular velocity.
 	cpFloat w_limit;
 	
-	CP_PRIVATE(cpVect v_bias);
-	CP_PRIVATE(cpFloat w_bias);
+	/* CP_PRIVATE(cpVect v_bias); */
+	/* CP_PRIVATE(cpFloat w_bias); */
 	
-	CP_PRIVATE(cpSpace *space);
+	/* CP_PRIVATE(cpSpace *space); */
 	
-	CP_PRIVATE(cpShape *shapeList);
-	CP_PRIVATE(cpArbiter *arbiterList);
-	CP_PRIVATE(cpConstraint *constraintList);
+	/* CP_PRIVATE(cpShape *shapeList); */
+	/* CP_PRIVATE(cpArbiter *arbiterList); */
+	/* CP_PRIVATE(cpConstraint *constraintList); */
 	
-	CP_PRIVATE(cpComponentNode node);
+	/* CP_PRIVATE(cpComponentNode node); */
 };
 
 /// Allocate a cpBody.

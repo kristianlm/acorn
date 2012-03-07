@@ -77,30 +77,30 @@ struct cpSpace {
 	/// By default it points to a statically allocated cpBody in the cpSpace struct.
 	cpBody *staticBody;
 	
-	CP_PRIVATE(cpTimestamp stamp);
-	CP_PRIVATE(cpFloat curr_dt);
+	/* CP_PRIVATE(cpTimestamp stamp); */
+	/* CP_PRIVATE(cpFloat curr_dt); */
 
-	CP_PRIVATE(cpArray *bodies);
-	CP_PRIVATE(cpArray *rousedBodies);
-	CP_PRIVATE(cpArray *sleepingComponents);
+	/* CP_PRIVATE(cpArray *bodies); */
+	/* CP_PRIVATE(cpArray *rousedBodies); */
+	/* CP_PRIVATE(cpArray *sleepingComponents); */
 	
-	CP_PRIVATE(cpSpatialIndex *staticShapes);
-	CP_PRIVATE(cpSpatialIndex *activeShapes);
+	/* CP_PRIVATE(cpSpatialIndex *staticShapes); */
+	/* CP_PRIVATE(cpSpatialIndex *activeShapes); */
 	
-	CP_PRIVATE(cpArray *arbiters);
-	CP_PRIVATE(cpContactBufferHeader *contactBuffersHead);
-	CP_PRIVATE(cpHashSet *cachedArbiters);
-	CP_PRIVATE(cpArray *pooledArbiters);
-	CP_PRIVATE(cpArray *constraints);
+	/* CP_PRIVATE(cpArray *arbiters); */
+	/* CP_PRIVATE(cpContactBufferHeader *contactBuffersHead); */
+	/* CP_PRIVATE(cpHashSet *cachedArbiters); */
+	/* CP_PRIVATE(cpArray *pooledArbiters); */
+	/* CP_PRIVATE(cpArray *constraints); */
 	
-	CP_PRIVATE(cpArray *allocatedBuffers);
-	CP_PRIVATE(int locked);
+	/* CP_PRIVATE(cpArray *allocatedBuffers); */
+	/* CP_PRIVATE(int locked); */
 	
-	CP_PRIVATE(cpHashSet *collisionHandlers);
-	CP_PRIVATE(cpCollisionHandler defaultHandler);
-	CP_PRIVATE(cpHashSet *postStepCallbacks);
+	/* CP_PRIVATE(cpHashSet *collisionHandlers); */
+	/* CP_PRIVATE(cpCollisionHandler defaultHandler); */
+	/* CP_PRIVATE(cpHashSet *postStepCallbacks); */
 	
-	CP_PRIVATE(cpBody _staticBody);
+	/* CP_PRIVATE(cpBody _staticBody); */
 };
 
 /// Allocate a cpSpace.
