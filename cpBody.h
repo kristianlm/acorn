@@ -154,45 +154,54 @@ static inline cpBool cpBodyIsRogue(const cpBody *body)
 }
 
 
-#define CP_DefineBodyStructGetter(type, member, name) \
-static inline type cpBodyGet##name(const cpBody *body){return body->member;}
+/* #define CP_DefineBodyStructGetter(type, member, name) \ */
+/* static inline type cpBodyGet##name(const cpBody *body){return body->member;} */
 
-#define CP_DefineBodyStructSetter(type, member, name) \
-static inline void cpBodySet##name(cpBody *body, const type value){ \
-	cpBodyActivate(body); \
-	cpBodyAssertSane(body); \
-	body->member = value; \
-}
+/* #define CP_DefineBodyStructSetter(type, member, name) \ */
+/* static inline void cpBodySet##name(cpBody *body, const type value){ \ */
+/* 	cpBodyActivate(body); \ */
+/* 	cpBodyAssertSane(body); \ */
+/* 	body->member = value; \ */
+/* } */
 
-#define CP_DefineBodyStructProperty(type, member, name) \
-CP_DefineBodyStructGetter(type, member, name) \
-CP_DefineBodyStructSetter(type, member, name)
+
+/* #define CP_DefineBodyStructSetter(type, member, name) \ */;
+//CP_DefineBodyStructGetter(type, member, name) \ */;
+/* CP_DefineBodyStructGetter(type, member, name) \ */
+/* CP_DefineBodyStructSetter(type, member, name) */
 
 // TODO add to docs
-CP_DefineBodyStructGetter(cpSpace*, CP_PRIVATE(space), Space);
+cpSpace* cpBodyGetSpace(cpBody *body);
 
-CP_DefineBodyStructGetter(cpFloat, m, Mass);
+cpFloat cpBodyGetMass(cpBody *body);
 /// Set the mass of a body.
-void cpBodySetMass(cpBody *body, cpFloat m);
+void    cpBodySetMass(cpBody *body, cpFloat m);
 
-CP_DefineBodyStructGetter(cpFloat, i, Moment);
+cpFloat cpBodyGetMoment(cpBody *body);
 /// Set the moment of a body.
-void cpBodySetMoment(cpBody *body, cpFloat i);
+void    cpBodySetMoment(cpBody *body, cpFloat i);
 
-CP_DefineBodyStructGetter(cpVect, p, Pos);
+cpVect        cpBodyGetPos(cpBody *body);
 /// Set the position of a body.
-void cpBodySetPos(cpBody *body, cpVect pos);
-CP_DefineBodyStructProperty(cpVect, v, Vel);
-CP_DefineBodyStructProperty(cpVect, f, Force);
-CP_DefineBodyStructGetter(cpFloat, a, Angle);
+void          cpBodySetPos(cpBody *body, cpVect pos);
+void          cpBodySetVel(cpBody *body, cpVect v);
+cpVect        cpBodyGetVel(cpBody *body);
+void          cpBodySetForce(cpBody *body, cpVect f);
+cpVect        cpBodyGetForce(cpBody *body);
+cpFloat       cpBodyGetAngle(cpBody *body);
 /// Set the angle of a body.
-void cpBodySetAngle(cpBody *body, cpFloat a);
-CP_DefineBodyStructProperty(cpFloat, w, AngVel);
-CP_DefineBodyStructProperty(cpFloat, t, Torque);
-CP_DefineBodyStructGetter(cpVect, rot, Rot);
-CP_DefineBodyStructProperty(cpFloat, v_limit, VelLimit);
-CP_DefineBodyStructProperty(cpFloat, w_limit, AngVelLimit);
-CP_DefineBodyStructProperty(cpDataPointer, data, UserData);
+void          cpBodySetAngle(cpBody *body, cpFloat a);
+void          cpBodySetAngVel(cpBody *body, cpFloat w);
+cpFloat       cpBodyGetAngVel(cpBody *body);
+void          cpBodySetTorque(cpBody *body, cpFloat t);
+cpFloat       cpBodyGetTorque(cpBody *body);
+cpVect        cpBodyGetRot(cpBody *body);
+void          cpBodySetVelLimit(cpBody *body, cpFloat v_limit);
+cpFloat       cpBodyGetVelLimit(cpBody *body);
+void          cpBodySetAngVelLimit(cpBody *body, cpFloat w_limit);
+cpFloat       cpBodyGetAngVelLimit(cpBody *body);
+void          cpBodySetUserData(cpBody *body, cpDataPointer data);
+cpDataPointer cpBodyGetUserData(cpBody *body);
 
 /// Default Integration functions.
 void cpBodyUpdateVelocity(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt);
