@@ -115,28 +115,42 @@ void cpSpaceDestroy(cpSpace *space);
 /// Destroy and free a cpSpace.
 void cpSpaceFree(cpSpace *space);
 
-#define CP_DefineSpaceStructGetter(type, member, name) \
-static inline type cpSpaceGet##name(const cpSpace *space){return space->member;}
+/* #define CP_DefineSpaceStructGetter(type, member, name) \ */
+/* static inline type cpSpaceGet##name(const cpSpace *space){return space->member;} */
 
-#define CP_DefineSpaceStructSetter(type, member, name) \
-static inline void cpSpaceSet##name(cpSpace *space, type value){space->member = value;}
+/* #define CP_DefineSpaceStructSetter(type, member, name) \ */
+/* static inline void cpSpaceSet##name(cpSpace *space, type value){space->member = value;} */
 
-#define CP_DefineSpaceStructProperty(type, member, name) \
-CP_DefineSpaceStructGetter(type, member, name) \
-CP_DefineSpaceStructSetter(type, member, name)
+/* #define CP_DefineSpaceStructSetter(type, member, name) \ */;
+//CP_DefineSpaceStructGetter(type, member, name) \ */;
+/* CP_DefineSpaceStructGetter(type, member, name) \ */
+/* CP_DefineSpaceStructSetter(type, member, name) */
 
-CP_DefineSpaceStructProperty(int, iterations, Iterations);
-CP_DefineSpaceStructProperty(cpVect, gravity, Gravity);
-CP_DefineSpaceStructProperty(cpFloat, damping, Damping);
-CP_DefineSpaceStructProperty(cpFloat, idleSpeedThreshold, IdleSpeedThreshold);
-CP_DefineSpaceStructProperty(cpFloat, sleepTimeThreshold, SleepTimeThreshold);
-CP_DefineSpaceStructProperty(cpFloat, collisionSlop, CollisionSlop);
-CP_DefineSpaceStructProperty(cpFloat, collisionBias, CollisionBias);
-CP_DefineSpaceStructProperty(cpTimestamp, collisionPersistence, CollisionPersistence);
-CP_DefineSpaceStructProperty(cpBool, enableContactGraph, EnableContactGraph);
-CP_DefineSpaceStructProperty(cpDataPointer, data, UserData);
-CP_DefineSpaceStructGetter(cpBody*, staticBody, StaticBody);
-CP_DefineSpaceStructGetter(cpFloat, CP_PRIVATE(curr_dt), CurrentTimeStep);
+void cpSpaceSetIterations(cpSpace*, int value);
+void cpSpaceSetGravity(cpSpace*, cpVect gravity);
+
+void          cpSpaceSetIterations(cpSpace *space, int iterations);;
+int           cpSpaceGetIterations(cpSpace *space);
+void          cpSpaceSetGravity(cpSpace *space, cpVect gravity);
+cpVect        cpSpaceGetGravity(cpSpace *space);
+void          cpSpaceSetDamping(cpSpace *space, cpFloat damping);
+cpFloat       cpSpaceGetDamping(cpSpace *space);
+void          cpSpaceSetIdleSpeedThreshold(cpSpace *space, cpFloat idleSpeedThreshold);
+cpFloat       cpSpaceGetIdleSpeedThreshold(cpSpace *space);
+void          cpSpaceSetSleepTimeThreshold(cpSpace *space, cpFloat sleepTimeThreshold);
+cpFloat       cpSpaceGetSleepTimeThreshold(cpSpace *space);
+void          cpSpaceSetCollisionSlop(cpSpace *space, cpFloat collisionSlop);
+cpFloat       cpSpaceGetCollisionSlop(cpSpace *space);
+void          cpSpaceSetCollisionBias(cpSpace *space, cpFloat collisionBias);
+cpFloat       cpSpaceGetCollisionBias(cpSpace *space);
+void          cpSpaceSetCollisionPersistence(cpSpace *space, cpTimestamp collisionPersistence);
+cpTimestamp   cpSpaceGetCollisionPersistence(cpSpace *space);
+void          cpSpaceSetEnableContactGraph(cpSpace *space, cpBool enableContactGraph);
+cpBool        cpSpaceGetEnableContactGraph(cpSpace *space);
+void          cpSpaceSetUserData(cpSpace *space, cpDataPointer data);
+cpDataPointer cpSpaceGetUserData(cpSpace *space);
+cpBody*       cpSpaceGetStaticBody(cpSpace *space);
+cpFloat       cpSpaceGetCurrentTimeStep(cpSpace *space);
 
 /// returns true from inside a callback and objects cannot be added/removed.
 static inline cpBool
