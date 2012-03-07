@@ -60,7 +60,11 @@ struct cpShapeClass {
 
 /// Opaque collision shape struct.
 struct cpShape {
-	CP_PRIVATE(const cpShapeClass *klass);
+  //	CP_PRIVATE(const cpShapeClass *klass); TODO: this may cause
+  //	trouble. our bindings offer make-cpShape functions which would
+  //	initialize only a portion of the fields. when we compile,
+  //	however, we use the real struct for cpShape (this is only used
+  //	during chicken-bind phase) so it shouldn't be too bad.
 	
 	/// The rigid body this collision shape is attached to.
 	cpBody *body;
