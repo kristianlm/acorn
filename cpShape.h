@@ -112,33 +112,42 @@ cpBB cpShapeUpdate(cpShape *shape, cpVect pos, cpVect rot);
 /// Test if a point lies within a shape.
 cpBool cpShapePointQuery(cpShape *shape, cpVect p);
 
-#define CP_DefineShapeStructGetter(type, member, name) \
-static inline type cpShapeGet##name(const cpShape *shape){return shape->member;}
+/* #define CP_DefineShapeStructGetter(type, member, name) \ */
+/* static inline type cpShapeGet##name(const cpShape *shape){return shape->member;} */
 
-#define CP_DefineShapeStructSetter(type, member, name, activates) \
-static inline void cpShapeSet##name(cpShape *shape, type value){ \
-	if(activates && shape->body) cpBodyActivate(shape->body); \
-	shape->member = value; \
-}
+/* #define CP_DefineShapeStructSetter(type, member, name, activates) \ */
+/* static inline void cpShapeSet##name(cpShape *shape, type value){ \ */
+/* 	if(activates && shape->body) cpBodyActivate(shape->body); \ */
+/* 	shape->member = value; \ */
+/* } */
 
-#define CP_DefineShapeStructProperty(type, member, name, activates) \
-CP_DefineShapeStructGetter(type, member, name) \
-CP_DefineShapeStructSetter(type, member, name, activates)
+/* #define CP_DefineShapeStructSetter(type, member, name, activates) \ */;
+//CP_DefineShapeStructGetter(type, member, name, activates) \ */;
+/* CP_DefineShapeStructGetter(type, member, name) \ */
+/* CP_DefineShapeStructSetter(type, member, name, activates) */
 
-CP_DefineShapeStructGetter(cpSpace*, CP_PRIVATE(space), Space);
+cpSpace* cpShapeGetSpace(const cpShape *shape);
 
-CP_DefineShapeStructGetter(cpBody*, body, Body);
+cpBody* cpShapeGetBody(const cpShape *shape);
 void cpShapeSetBody(cpShape *shape, cpBody *body);
 
-CP_DefineShapeStructGetter(cpBB, bb, BB);
-CP_DefineShapeStructProperty(cpBool, sensor, Sensor, cpTrue);
-CP_DefineShapeStructProperty(cpFloat, e, Elasticity, cpFalse);
-CP_DefineShapeStructProperty(cpFloat, u, Friction, cpTrue);
-CP_DefineShapeStructProperty(cpVect, surface_v, SurfaceVelocity, cpTrue);
-CP_DefineShapeStructProperty(cpDataPointer, data, UserData, cpFalse);
-CP_DefineShapeStructProperty(cpCollisionType, collision_type, CollisionType, cpTrue);
-CP_DefineShapeStructProperty(cpGroup, group, Group, cpTrue);
-CP_DefineShapeStructProperty(cpLayers, layers, Layers, cpTrue);
+cpBB cpShapeGetBB(const cpShape *shape);
+void cpShapeSetSensor(cpShape *shape, cpBool sensor);
+cpBool cpShapeGetSensor(const cpShape *shape);
+void cpShapeSetElasticity(cpShape *shape, cpFloat e);
+cpFloat cpShapeGetElasticity(const cpShape *shape);
+void cpShapeSetFriction(cpShape *shape, cpFloat u);
+cpFloat cpShapeGetFriction(const cpShape *shape);
+void cpShapeSetSurfaceVelocity(cpShape *shape, cpVect surface_v);
+cpVect cpShapeGetSurfaceVelocity(const cpShape *shape);
+void cpShapeSetUserData(cpShape *shape, cpDataPointer data);
+cpDataPointer cpShapeGetUserData(const cpShape *shape);
+void cpShapeSetCollisionType(cpShape *shape, cpCollisionType collision_type);
+cpCollisionType cpShapeGetCollisionType(const cpShape *shape);
+void cpShapeSetGroup(cpShape *shape, cpGroup group);
+cpGroup cpShapeGetGroup(const cpShape *shape);
+void cpShapeSetLayers(cpShape *shape, cpLayers layers);
+cpLayers cpShapeGetLayers(const cpShape *shape);
 
 /// When initializing a shape, it's hash value comes from a counter.
 /// Because the hash value may affect iteration order, you can reset the shape ID counter
