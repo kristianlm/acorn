@@ -9,84 +9,58 @@
 	#define CP_USE_CGPOINTS 1
 #endif
 
-#if CP_USE_CGPOINTS == 1
-	#if TARGET_OS_IPHONE
-		#import <CoreGraphics/CGGeometry.h>
-	#elif TARGET_OS_MAC
-		#import <ApplicationServices/ApplicationServices.h>
-	#endif
-	
-	#if defined(__LP64__) && __LP64__
-		#define CP_USE_DOUBLES 1
-	#else
-		#define CP_USE_DOUBLES 0
-	#endif
-#endif
-
 #ifndef CP_USE_DOUBLES
 	// use doubles by default for higher precision
-	#define CP_USE_DOUBLES 1
+#define CP_USE_DOUBLES 1
 #endif
-
-/// @defgroup basicTypes Basic Types
-/// Most of these types can be configured at compile time.
-/// @{
 
 #if CP_USE_DOUBLES
 /// Chipmunk's floating point type.
 /// Can be reconfigured at compile time.
 	typedef double cpFloat;
-	#define cpfsqrt sqrt
-	#define cpfsin sin
-	#define cpfcos cos
-	#define cpfacos acos
-	#define cpfatan2 atan2
-	#define cpfmod fmod
-	#define cpfexp exp
-	#define cpfpow pow
-	#define cpffloor floor
-	#define cpfceil ceil
+#define cpfsqrt sqrt
+#define cpfsin sin
+#define cpfcos cos
+#define cpfacos acos
+#define cpfatan2 atan2
+#define cpfmod fmod
+#define cpfexp exp
+#define cpfpow pow
+#define cpffloor floor
+#define cpfceil ceil
 #else
-	typedef float cpFloat;
-	#define cpfsqrt sqrtf
-	#define cpfsin sinf
-	#define cpfcos cosf
-	#define cpfacos acosf
-	#define cpfatan2 atan2f
-	#define cpfmod fmodf
-	#define cpfexp expf
-	#define cpfpow powf
-	#define cpffloor floorf
-	#define cpfceil ceilf
+typedef float cpFloat;
+#define cpfsqrt sqrtf
+#define cpfsin sinf
+#define cpfcos cosf
+#define cpfacos acosf
+#define cpfatan2 atan2f
+#define cpfmod fmodf
+#define cpfexp expf
+#define cpfpow powf
+#define cpffloor floorf
+#define cpfceil ceilf
 #endif
 
 #ifndef INFINITY
-	//TODO use C++ infinity
-	#ifdef _MSC_VER
-		union MSVC_EVIL_FLOAT_HACK
-		{
-			unsigned __int8 Bytes[4];
-			float Value;
-		};
-		static union MSVC_EVIL_FLOAT_HACK INFINITY_HACK = {{0x00, 0x00, 0x80, 0x7F}};
-		#define INFINITY (INFINITY_HACK.Value)
-	#endif
+#endif
 	
-	#ifdef __GNUC__
-		#define INFINITY (__builtin_inf())
-	#endif
+#ifdef __GNUC__
+#define INFINITY (__builtin_inf())
+#endif
 	
-	#ifndef INFINITY
-		#define INFINITY (1e1000)
-	#endif
+#ifndef INFINITY
+//#define INFINITY (1e1000)
 #endif
 
+
+
 #ifndef M_PI
-	#define M_PI 3.14159265358979323846264338327950288
+#define M_PI 3.14159265358979323846264338327950288
 #endif
 
 #ifndef M_E
-	#define M_E 2.71828182845904523536028747135266250
+#define M_E 2.71828182845904523536028747135266250
 #endif
 
 
@@ -134,6 +108,7 @@ static inline cpFloat cpflerpconst(cpFloat f1, cpFloat f2, cpFloat d)
 	return f1 + cpfclamp(f2 - f1, -d, d);
 }
 
+typedef unsigned int*   uintptr_t;
 /// Hash value type.
 typedef uintptr_t cpHashValue;
 
@@ -147,12 +122,12 @@ typedef uintptr_t cpHashValue;
 
 #ifndef cpTrue
 /// true value.
-	#define cpTrue 1
+#define cpTrue 1
 #endif
 
 #ifndef cpFalse
 /// false value.
-	#define cpFalse 0
+#define cpFalse 0
 #endif
 
 #ifdef CP_DATA_POINTER_TYPE
@@ -192,14 +167,14 @@ typedef uintptr_t cpHashValue;
 
 #ifndef CP_NO_GROUP
 /// Value for cpShape.group signifying that a shape is in no group.
-	#define CP_NO_GROUP ((cpGroup)0)
+#define CP_NO_GROUP ((cpGroup)0)
 #endif
 
 #ifndef CP_ALL_LAYERS
 /// Value for cpShape.layers signifying that a shape is in every layer.
-	#define CP_ALL_LAYERS (~(cpLayers)0)
+#define CP_ALL_LAYERS (~(cpLayers)0)
 #endif
-/// @}
+
 
 // CGPoints are structurally the same, and allow
 // easy interoperability with other Cocoa libraries
@@ -210,5 +185,6 @@ typedef uintptr_t cpHashValue;
 /// @addtogroup cpVect
 	typedef struct cpVect{cpFloat x,y;} cpVect;
 #endif
+
 
 

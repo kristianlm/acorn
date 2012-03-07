@@ -22,35 +22,32 @@
 #ifndef CHIPMUNK_HEADER
 #define CHIPMUNK_HEADER
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifndef CP_ALLOW_PRIVATE_ACCESS
 	#define CP_ALLOW_PRIVATE_ACCESS 0
 #endif
 
-#if CP_ALLOW_PRIVATE_ACCESS == 1
-	#define CP_PRIVATE(symbol) symbol
-#else
-	#define CP_PRIVATE(symbol) symbol##_private
-#endif
 
-void cpMessage(const char *condition, const char *file, int line, int isError, int isHardError, const char *message, ...);
+//#if CP_ALLOW_PRIVATE_ACCESS == 1
+#define CP_PRIVATE(symbol) symbol
+//#else
+//#define CP_PRIVATE(symbol) symbol##_private
+//#endif
+
+//void cpMessage(const char *condition, const char *file, int line, int isError, int isHardError, const char *message, ...);
 #ifdef NDEBUG
 	#define	cpAssertWarn(condition, ...)
 #else
-	#define cpAssertWarn(condition, ...) if(!(condition)) cpMessage(#condition, __FILE__, __LINE__, 0, 0, __VA_ARGS__)
+//	#define cpAssertWarn(condition, ...) if(!(condition)) cpMessage(#condition, __FILE__, __LINE__, 0, 0, __VA_ARGS__)
 #endif
 
 #ifdef NDEBUG
 	#define	cpAssertSoft(condition, ...)
 #else
-	#define cpAssertSoft(condition, ...) if(!(condition)) cpMessage(#condition, __FILE__, __LINE__, 1, 0, __VA_ARGS__)
+//	#define cpAssertSoft(condition, ...) if(!(condition)) cpMessage(#condition, __FILE__, __LINE__, 1, 0, __VA_ARGS__)
 #endif
 
 // Hard assertions are important and cheap to execute. They are not disabled by compiling as debug.
-#define cpAssertHard(condition, ...) if(!(condition)) cpMessage(#condition, __FILE__, __LINE__, 1, 1, __VA_ARGS__)
+//#define cpAssertHard(condition, ...) if(!(condition)) cpMessage(#condition, __FILE__, __LINE__, 1, 1, __VA_ARGS__)
 
 
 #include "chipmunk_types.h"
@@ -92,14 +89,14 @@ typedef struct cpSpace cpSpace;
 
 #include "cpVect.h"
 #include "cpBB.h"
-#include "cpSpatialIndex.h"
+//#include "cpSpatialIndex.h"
 
 #include "cpBody.h"
 #include "cpShape.h"
-#include "cpPolyShape.h"
+//#include "cpPolyShape.h"
 
-#include "cpArbiter.h"	
-#include "constraints/cpConstraint.h"
+//#include "cpArbiter.h"	
+//#include "constraints/cpConstraint.h"
 
 #include "cpSpace.h"
 
@@ -148,16 +145,6 @@ cpFloat cpMomentForBox(cpFloat m, cpFloat width, cpFloat height);
 /// Calculate the moment of inertia for a solid box.
 cpFloat cpMomentForBox2(cpFloat m, cpBB box);
 
-//@}
+/* //@} */
 
-#ifdef __cplusplus
-}
-
-static inline cpVect operator *(const cpVect v, const cpFloat s){return cpvmult(v, s);}
-static inline cpVect operator +(const cpVect v1, const cpVect v2){return cpvadd(v1, v2);}
-static inline cpVect operator -(const cpVect v1, const cpVect v2){return cpvsub(v1, v2);}
-static inline cpBool operator ==(const cpVect v1, const cpVect v2){return cpveql(v1, v2);}
-static inline cpVect operator -(const cpVect v){return cpvneg(v);}
-
-#endif
 #endif
