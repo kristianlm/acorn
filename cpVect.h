@@ -24,7 +24,8 @@
 /// @{
 
 /// Constant for the zero vector.
-static const cpVect cpvzero = {0.0f,0.0f};
+// TODO make chicken-bind support this:
+// static const cpVect cpvzero = {0.0f,0.0f};
 
 /// Convenience constructor for cpVect structs.
 static inline cpVect cpv(const cpFloat x, const cpFloat y)
