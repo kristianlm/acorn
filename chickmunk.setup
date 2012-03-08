@@ -1,5 +1,7 @@
 
 
 (compile -s -lchipmunk chickmunk.scm -j chickmunk)
+(compile -s chickmunk.import.scm )
 
-(install-extension 'chickmunk "chickmunk.so" "chickmunk.import.so")
+(install-extension 'chickmunk 
+                   '("chickmunk.so" "chickmunk.import.so"))
