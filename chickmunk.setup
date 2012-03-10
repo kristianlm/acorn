@@ -5,3 +5,13 @@
 
 (install-extension 'chickmunk 
                    '("chickmunk.so" "chickmunk.import.so"))
+
+
+(compile -s chickmunk-draw.scm -lchipmunk
+         ChipmunkDebugDraw.c -C --std=c99
+         -J)
+
+(compile -s chickmunk-draw.import.scm)
+
+(install-extension 'chickmunk-draw
+                   '("chickmunk-draw.so" "chickmunk-draw.import.so"))
