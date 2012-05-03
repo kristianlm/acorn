@@ -40,7 +40,8 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 (define (callback-wrapper proc)
   (let* ([self #f]
          [cbwrap (lambda (cp-pointer) ; coming from C-land
-                   (proc cp-pointer)
+                   (proc cp-pointer) ; TODO: handle errors here
+                                     ; (crashes otherwise)
                    self)])
     (set! self cbwrap)
     cbwrap))
