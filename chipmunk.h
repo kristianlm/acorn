@@ -96,7 +96,7 @@ typedef struct cpSpace cpSpace;
 
 #include "cpBody.h"
 #include "cpShape.h"
-//#include "cpPolyShape.h"
+#include "cpPolyShape.h"
 
 //#include "cpArbiter.h"	
 //#include "constraints/cpConstraint.h"
