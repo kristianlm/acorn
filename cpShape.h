@@ -133,25 +133,25 @@ cpBool cpShapePointQuery(cpShape *shape, cpVect p);
 cpSpace* cpShapeGetSpace(const cpShape *shape);
 
 cpBody* cpShapeGetBody(const cpShape *shape);
-void cpShapeSetBody(cpShape *shape, cpBody *body);
+void    cpShapeSetBody(cpShape *shape, cpBody *body);
 
-cpBB cpShapeGetBB(const cpShape *shape);
-void cpShapeSetSensor(cpShape *shape, cpBool sensor);
-cpBool cpShapeGetSensor(const cpShape *shape);
-void cpShapeSetElasticity(cpShape *shape, cpFloat e);
-cpFloat cpShapeGetElasticity(const cpShape *shape);
-void cpShapeSetFriction(cpShape *shape, cpFloat u);
-cpFloat cpShapeGetFriction(const cpShape *shape);
-void cpShapeSetSurfaceVelocity(cpShape *shape, cpVect surface_v);
-cpVect cpShapeGetSurfaceVelocity(const cpShape *shape);
-void cpShapeSetUserData(cpShape *shape, cpDataPointer data);
-cpDataPointer cpShapeGetUserData(const cpShape *shape);
-void cpShapeSetCollisionType(cpShape *shape, cpCollisionType collision_type);
+cpBB            cpShapeGetBB(const cpShape *shape);
+void            cpShapeSetSensor(cpShape *shape, cpBool sensor);
+cpBool          cpShapeGetSensor(const cpShape *shape);
+void            cpShapeSetElasticity(cpShape *shape, cpFloat e);
+cpFloat         cpShapeGetElasticity(const cpShape *shape);
+void            cpShapeSetFriction(cpShape *shape, cpFloat u);
+cpFloat         cpShapeGetFriction(const cpShape *shape);
+void            cpShapeSetSurfaceVelocity(cpShape *shape, cpVect surface_v);
+cpVect          cpShapeGetSurfaceVelocity(const cpShape *shape);
+void            cpShapeSetUserData(cpShape *shape, cpDataPointer data);
+cpDataPointer   cpShapeGetUserData(const cpShape *shape);
+void            cpShapeSetCollisionType(cpShape *shape, cpCollisionType collision_type);
 cpCollisionType cpShapeGetCollisionType(const cpShape *shape);
-void cpShapeSetGroup(cpShape *shape, cpGroup group);
-cpGroup cpShapeGetGroup(const cpShape *shape);
-void cpShapeSetLayers(cpShape *shape, cpLayers layers);
-cpLayers cpShapeGetLayers(const cpShape *shape);
+void            cpShapeSetGroup(cpShape *shape, cpGroup group);
+cpGroup         cpShapeGetGroup(const cpShape *shape);
+void            cpShapeSetLayers(cpShape *shape, cpLayers layers);
+cpLayers        cpShapeGetLayers(const cpShape *shape);
 
 /// When initializing a shape, it's hash value comes from a counter.
 /// Because the hash value may affect iteration order, you can reset the shape ID counter
@@ -173,7 +173,7 @@ static inline cpFloat cpSegmentQueryHitDist(const cpVect start, const cpVect end
 	return cpvdist(start, end)*info.t;
 }
 
-#define CP_DeclareShapeGetter(struct, type, name) type struct##Get##name(const cpShape *shape)
+/* #define CP_DeclareShapeGetter(struct, type, name) type struct##Get##name(const cpShape *shape) */
 
 /// @}
 /// @defgroup cpCircleShape cpCircleShape
@@ -193,8 +193,8 @@ cpCircleShape* cpCircleShapeInit(cpCircleShape *circle, cpBody *body, cpFloat ra
 /// Allocate and initialize a circle shape.
 cpShape* cpCircleShapeNew(cpBody *body, cpFloat radius, cpVect offset);
 
-CP_DeclareShapeGetter(cpCircleShape, cpVect, Offset);
-CP_DeclareShapeGetter(cpCircleShape, cpFloat, Radius);
+/* CP_DeclareShapeGetter(cpCircleShape, cpVect, Offset); */
+/* CP_DeclareShapeGetter(cpCircleShape, cpFloat, Radius); */
 
 /// @}
 /// @defgroup cpSegmentShape cpSegmentShape
@@ -219,9 +219,9 @@ cpShape* cpSegmentShapeNew(cpBody *body, cpVect a, cpVect b, cpFloat radius);
 
 void cpSegmentShapeSetNeighbors(cpShape *shape, cpVect prev, cpVect next);
 
-CP_DeclareShapeGetter(cpSegmentShape, cpVect, A);
-CP_DeclareShapeGetter(cpSegmentShape, cpVect, B);
-CP_DeclareShapeGetter(cpSegmentShape, cpVect, Normal);
-CP_DeclareShapeGetter(cpSegmentShape, cpFloat, Radius);
+/* CP_DeclareShapeGetter(cpSegmentShape, cpVect, A); */
+/* CP_DeclareShapeGetter(cpSegmentShape, cpVect, B); */
+/* CP_DeclareShapeGetter(cpSegmentShape, cpVect, Normal); */
+/* CP_DeclareShapeGetter(cpSegmentShape, cpFloat, Radius); */
 
 /// @}

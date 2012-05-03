@@ -163,26 +163,26 @@ cpSpaceIsLocked(cpSpace *space)
 /// The default collision handler is invoked for each colliding pair of shapes
 /// that isn't explicitly handled by a specific collision handler.
 /// You can pass NULL for any function you don't want to implement.
-void cpSpaceSetDefaultCollisionHandler(
-	cpSpace *space,
-	cpCollisionBeginFunc begin,
-	cpCollisionPreSolveFunc preSolve,
-	cpCollisionPostSolveFunc postSolve,
-	cpCollisionSeparateFunc separate,
-	void *data
-);
+/* void cpSpaceSetDefaultCollisionHandler( */
+/* 	cpSpace *space, */
+/* 	cpCollisionBeginFunc begin, */
+/* 	cpCollisionPreSolveFunc preSolve, */
+/* 	cpCollisionPostSolveFunc postSolve, */
+/* 	cpCollisionSeparateFunc separate, */
+/* 	void *data */
+/* ); */
 
 /// Set a collision handler to be used whenever the two shapes with the given collision types collide.
 /// You can pass NULL for any function you don't want to implement.
-void cpSpaceAddCollisionHandler(
-	cpSpace *space,
-	cpCollisionType a, cpCollisionType b,
-	cpCollisionBeginFunc begin,
-	cpCollisionPreSolveFunc preSolve,
-	cpCollisionPostSolveFunc postSolve,
-	cpCollisionSeparateFunc separate,
-	void *data
-);
+/* void cpSpaceAddCollisionHandler( */
+/* 	cpSpace *space, */
+/* 	cpCollisionType a, cpCollisionType b, */
+/* 	cpCollisionBeginFunc begin, */
+/* 	cpCollisionPreSolveFunc preSolve, */
+/* 	cpCollisionPostSolveFunc postSolve, */
+/* 	cpCollisionSeparateFunc separate, */
+/* 	void *data */
+/* ); TODO collision funcs aren't parsed correctly*/
 
 /// Unset a collision handler.
 void cpSpaceRemoveCollisionHandler(cpSpace *space, cpCollisionType a, cpCollisionType b);
