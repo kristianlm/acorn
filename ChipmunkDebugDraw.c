@@ -25,6 +25,9 @@
 #include <limits.h>
 #include <string.h>
 
+#ifdef ANDROID
+#include <GLES/gl.h>
+#else
 #ifdef __APPLE__
 	#include "OpenGL/gl.h"
 	#include "OpenGL/glu.h"
@@ -37,6 +40,7 @@
 	#include <GL/gl.h>
 	#include <GL/glu.h>
 	#include <GL/glut.h>
+#endif
 #endif
 
 #include <chipmunk/chipmunk_private.h>
@@ -93,7 +97,7 @@ ColorFromHash(cpHashValue hash, float alpha)
 
 static inline void
 glColor_from_color(Color color){
-	glColor4fv((GLfloat *)&color);
+  glColor4f(color.r, color.g, color.b, color.a);
 }
 
 static Color
@@ -429,17 +433,17 @@ void ChipmunkDebugDrawCollisionPoints(cpSpace *space)
 {
 	cpArray *arbiters = space->arbiters;
 	
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0);
 	glPointSize(4.0f*ChipmunkDebugDrawPointLineScale);
 	
-	glBegin(GL_POINTS); {
-		for(int i=0; i<arbiters->num; i++){
-			cpArbiter *arb = (cpArbiter*)arbiters->arr[i];
+	/* glBegin(GL_POINTS); { */
+	/* 	for(int i=0; i<arbiters->num; i++){ */
+	/* 		cpArbiter *arb = (cpArbiter*)arbiters->arr[i]; */
 			
-			for(int j=0; j<arb->numContacts; j++){
-				cpVect v = arb->contacts[j].p;
-				glVertex2f(v.x, v.y);
-			}
-		}
-	} glEnd();
+	/* 		for(int j=0; j<arb->numContacts; j++){ */
+	/* 			cpVect v = arb->contacts[j].p; */
+	/* 			glVertex2f(v.x, v.y); */
+	/* 		} */
+	/* 	} */
+	/* } glEnd(); */
 }
