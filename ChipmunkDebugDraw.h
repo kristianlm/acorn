@@ -37,7 +37,9 @@ static inline Color LAColor(float l, float a){
 extern float ChipmunkDebugDrawPointLineScale;
 // obs! this is defined in chipmunk_types but we can't
 // redifine other stuff from there.
-typedef double cpFloat;
+#ifndef CHIPMUNK_HEADER
+typedef float cpFloat;
+#endif
 
 void ChipmunkDebugDrawCircle(struct cpVect center, cpFloat angle, cpFloat radius, Color lineColor, Color fillColor);
 void ChipmunkDebugDrawSegment(struct cpVect a, struct cpVect b, Color color);

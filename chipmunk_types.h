@@ -18,6 +18,9 @@
 /// Chipmunk's floating point type.
 /// Can be reconfigured at compile time.
 	typedef double cpFloat;
+
+#error TYPE IS WRONG!
+
 #define cpfsqrt sqrt
 #define cpfsin sin
 #define cpfcos cos
