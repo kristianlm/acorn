@@ -1,3 +1,9 @@
 /obj/
 /libs/armeabi/
 
+/chickmunk.so
+/chickmunk.import.so
+/chickmunk.import.scm
+/chickmunk-draw.import.scm
+/chickmunk-draw.import.so
+/chickmunk-draw.so
