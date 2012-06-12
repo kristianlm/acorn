@@ -67,6 +67,6 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 (define cp:vzero (cp:make-vect 0 0))
 
 (define cp:use-doubles (foreign-value "CP_USE_DOUBLES" int))
-(define cp:sizeof-cpVect (foreign-value "sizeof(struct cpVect)" int))
+(define cp:sizeof-vect (foreign-value "sizeof(struct cpVect)" int))
 
 )
