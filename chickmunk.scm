@@ -31,8 +31,9 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 <#
 
 
-(bind-rename/pattern "^cp" "cp:")
-(bind-options default-renaming: "")
+(bind-rename/pattern "^cp" "")
+(bind-rename/pattern "make-cp" "make")
+(bind-options default-renaming: "cp:" )
 (bind-include-path "./include")
 (bind-file "./include/chipmunk.h")
 
@@ -62,8 +63,10 @@ void forEachConstraint (cpSpace *space, C_word callback) {
   ((foreign-safe-lambda void "forEachConstraint" (c-pointer "cpSpace") scheme-object)
    space (callback-wrapper callback)))
 
-(define cpv make-cp-vect)
-(define cpvzero (cpv 0 0))
+(define cp:v cp:make-vect)
+(define cp:vzero (cp:make-vect 0 0))
 
+(define cp:use-doubles (foreign-value "CP_USE_DOUBLES" int))
+(define cp:sizeof-cpVect (foreign-value "sizeof(struct cpVect)" int))
 
 )
