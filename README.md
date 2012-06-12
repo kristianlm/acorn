@@ -22,7 +22,7 @@ supports this but the test coverage is questionable. You'll need my version in o
 
 ## Example
 
-See [sample.scm](blob/master/sample.scm).
+See [sample.scm](/kristianlm/chickmunk/blob/master/sample.scm).
 
 ## Troubleshooting
 
