@@ -37,3 +37,5 @@ Configure preprocessor with -DCP_USE_DOUBLES=0"))
 (let ([bodypos (cp:body-get-pos body)])
   ;; you should see body's position altered by gravity
   (print bodypos " @ " (cp:vect-x bodypos) ", " (cp:vect-y bodypos)))
+
+(cp:space-free space)
