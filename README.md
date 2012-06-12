@@ -29,3 +29,11 @@ See [sample.scm](/kristianlm/chickmunk/blob/master/sample.scm).
 ### Error: illegal foreign argument type `(struct cpBB)'
 
 Try installing the alternative chicken-bind version from my (kristianlm) github repo.
+
+### Runtime error: strange calculations and/or segfault
+Your chipmunk binaries may be configured to use doubles, while the Chicken version uses floats. Try this:
+```scheme
+(cp:moment-for-circle 1 0 1 cp:vzero) ;; should return 0.5
+```
+If the above calculation returns something not 0.5, this may be the problem. You can add `-DCP_USE_DOUBLES=0` 
+to `CMakeLists.txt` in the chipmunk-directory and rerun `cmake .` and `sudo make install`.
