@@ -31,6 +31,8 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 <#
 
 (bind-file "chipmunk.h")
+(bind-rename/pattern "^cp" "cp:")
+(bind-options default-renaming: "")
 
 ;; callback used by our C-function. It returns itself, thus, the
 ;; result of C_callback is the callback function itself -
@@ -58,7 +60,7 @@ void forEachConstraint (cpSpace *space, C_word callback) {
   ((foreign-safe-lambda void "forEachConstraint" (c-pointer "cpSpace") scheme-object)
    space (callback-wrapper callback)))
 
-(define cpv make-cpVect)
+(define cpv make-cp-vect)
 (define cpvzero (cpv 0 0))
 
 
