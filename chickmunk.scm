@@ -30,9 +30,11 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 }
 <#
 
-(bind-file "chipmunk.h")
+
 (bind-rename/pattern "^cp" "cp:")
 (bind-options default-renaming: "")
+(bind-include-path "./include")
+(bind-file "./include/chipmunk.h")
 
 ;; callback used by our C-function. It returns itself, thus, the
 ;; result of C_callback is the callback function itself -

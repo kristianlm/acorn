@@ -130,7 +130,7 @@ cpBool cpShapePointQuery(cpShape *shape, cpVect p);
 /* CP_DefineShapeStructGetter(type, member, name) \ */
 /* CP_DefineShapeStructSetter(type, member, name, activates) */
 
-cpSpace* cpShapeGetSpace(const cpShape *shape);
+//cpSpace* cpShapeGetSpace(const cpShape *shape);
 
 cpBody* cpShapeGetBody(const cpShape *shape);
 void    cpShapeSetBody(cpShape *shape, cpBody *body);

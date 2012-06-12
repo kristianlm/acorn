@@ -171,7 +171,7 @@ static inline cpBool cpBodyIsRogue(const cpBody *body)
 /* CP_DefineBodyStructSetter(type, member, name) */
 
 // TODO add to docs
-cpSpace* cpBodyGetSpace(cpBody *body);
+//cpSpace* cpBodyGetSpace(cpBody *body);
 
 cpFloat cpBodyGetMass(cpBody *body);
 /// Set the mass of a body.
