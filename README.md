@@ -2,11 +2,11 @@
   [Chipmunk]: http://chipmunk-physics.net/
   [chicken-bind]:(http://wiki.call-cc.org/eggref/4/bind)
 
-# [Chicken Scheme] bindings for [Chipmunk Physics]
+# [Chicken Scheme] bindings for [Chipmunk]
 
 Give your chicken some physics! This API currently follows the 
 [original C-API](http://chipmunk-physics.net/documentation.php) closely, 
-which thus is probably your best source of information. It is in Alpha stage because:
+which thus is probably your best source for information. It is in Alpha stage because:
 
 * It's just a wrapper around C functions (Scheme should allow for a much easier API)
 * Its [chicken-bind] dependency needs some love and care
