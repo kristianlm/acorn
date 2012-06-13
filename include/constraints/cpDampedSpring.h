@@ -52,11 +52,24 @@ cpDampedSpring* cpDampedSpringInit(cpDampedSpring *joint, cpBody *a, cpBody *b, 
 /// Allocate and initialize a damped spring.
 cpConstraint* cpDampedSpringNew(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat restLength, cpFloat stiffness, cpFloat damping);
 
-CP_DefineConstraintProperty(cpDampedSpring, cpVect, anchr1, Anchr1);
-CP_DefineConstraintProperty(cpDampedSpring, cpVect, anchr2, Anchr2);
-CP_DefineConstraintProperty(cpDampedSpring, cpFloat, restLength, RestLength);
-CP_DefineConstraintProperty(cpDampedSpring, cpFloat, stiffness, Stiffness);
-CP_DefineConstraintProperty(cpDampedSpring, cpFloat, damping, Damping);
-CP_DefineConstraintProperty(cpDampedSpring, cpDampedSpringForceFunc, springForceFunc, SpringForceFunc);
 
+/* CP_DefineConstraintProperty(cpDampedSpring, cpVect, anchr1, Anchr1); */
+/* CP_DefineConstraintProperty(cpDampedSpring, cpVect, anchr2, Anchr2); */
+/* CP_DefineConstraintProperty(cpDampedSpring, cpFloat, restLength, RestLength); */
+/* CP_DefineConstraintProperty(cpDampedSpring, cpFloat, stiffness, Stiffness); */
+/* CP_DefineConstraintProperty(cpDampedSpring, cpFloat, damping, Damping); */
+/* CP_DefineConstraintProperty(cpDampedSpring, cpDampedSpringForceFunc, springForceFunc, SpringForceFunc); */
+
+cpVect cpDampedSpringGetAnchr1(const cpConstraint *constraint); 
+void cpDampedSpringSetAnchr1(cpConstraint *constraint, cpVect value);
+cpVect cpDampedSpringGetAnchr2(const cpConstraint *constraint); 
+void cpDampedSpringSetAnchr2(cpConstraint *constraint, cpVect value);
+cpFloat cpDampedSpringGetRestLength(const cpConstraint *constraint); 
+void cpDampedSpringSetRestLength(cpConstraint *constraint, cpFloat value);
+cpFloat cpDampedSpringGetStiffness(const cpConstraint *constraint); 
+void cpDampedSpringSetStiffness(cpConstraint *constraint, cpFloat value);
+cpFloat cpDampedSpringGetDamping(const cpConstraint *constraint); 
+void cpDampedSpringSetDamping(cpConstraint *constraint, cpFloat value);
+cpDampedSpringForceFunc cpDampedSpringGetSpringForceFunc(const cpConstraint *constraint); 
+void cpDampedSpringSetSpringForceFunc(cpConstraint *constraint, cpDampedSpringForceFunc value);
 /// @}

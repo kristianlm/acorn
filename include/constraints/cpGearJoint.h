@@ -43,8 +43,13 @@ cpGearJoint* cpGearJointInit(cpGearJoint *joint, cpBody *a, cpBody *b, cpFloat p
 /// Allocate and initialize a gear joint.
 cpConstraint* cpGearJointNew(cpBody *a, cpBody *b, cpFloat phase, cpFloat ratio);
 
-CP_DefineConstraintProperty(cpGearJoint, cpFloat, phase, Phase);
-CP_DefineConstraintGetter(cpGearJoint, cpFloat, ratio, Ratio);
+
+/* CP_DefineConstraintProperty(cpGearJoint, cpFloat, phase, Phase); */
+/* CP_DefineConstraintGetter(cpGearJoint, cpFloat, ratio, Ratio); */
+cpFloat cpGearJointGetPhase(const cpConstraint *constraint); 
+void cpGearJointSetPhase(cpConstraint *constraint, cpFloat value);
+cpFloat cpGearJointGetRatio(const cpConstraint *constraint);;
+
 /// Set the ratio of a gear joint.
 void cpGearJointSetRatio(cpConstraint *constraint, cpFloat value);
 

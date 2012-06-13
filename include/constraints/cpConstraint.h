@@ -44,18 +44,18 @@ typedef void (*cpConstraintPostSolveFunc)(cpConstraint *constraint, cpSpace *spa
 
 
 /// Opaque cpConstraint struct.
-struct cpConstraint {
-	CP_PRIVATE(const cpConstraintClass *klass);
+typedef struct cpConstraint {
+  //const cpConstraintClass *klass;
 	
 	/// The first body connected to this constraint.
 	cpBody *a;
 	/// The second body connected to this constraint.
 	cpBody *b;
 	
-	CP_PRIVATE(cpSpace *space);
+  //	cpSpace *space;
 	
-	CP_PRIVATE(cpConstraint *next_a);
-	CP_PRIVATE(cpConstraint *next_b);
+  //	cpConstraint *next_a;
+  //	cpConstraint *next_b;
 	
 	/// The maximum force that this constraint is allowed to use.
 	/// Defaults to infinity.
@@ -80,7 +80,7 @@ struct cpConstraint {
 	/// Generally this points to your the game object class so you can access it
 	/// when given a cpConstraint reference in a callback.
 	cpDataPointer data;
-};
+} cpContraint;
 
 /// Destroy a constraint.
 void cpConstraintDestroy(cpConstraint *constraint);
@@ -95,29 +95,50 @@ static inline void cpConstraintActivateBodies(cpConstraint *constraint)
 }
 
 /// @private
-#define CP_DefineConstraintStructGetter(type, member, name) \
-static inline type cpConstraint##Get##name(const cpConstraint *constraint){return constraint->member;}
+//#define CP_DefineConstraintStructGetter(type, member, name)           \
+//static inline type cpConstraint##Get##name(const cpConstraint *constraint){return constraint->member;}
 
 /// @private
-#define CP_DefineConstraintStructSetter(type, member, name) \
-static inline void cpConstraint##Set##name(cpConstraint *constraint, type value){ \
-	cpConstraintActivateBodies(constraint); \
-	constraint->member = value; \
-}
+//#define CP_DefineConstraintStructSetter(type, member, name)           \
+//static inline void cpConstraint##Set##name(cpConstraint *constraint, type value){ \
+//	cpConstraintActivateBodies(constraint);                         \
+//	constraint->member = value;                                     \
+//}
 
 /// @private
-#define CP_DefineConstraintStructProperty(type, member, name) \
-CP_DefineConstraintStructGetter(type, member, name) \
-CP_DefineConstraintStructSetter(type, member, name)
+//#define CP_DefineConstraintStructProperty(type, member, name) \
+//CP_DefineConstraintStructGetter(type, member, name)           \
+//CP_DefineConstraintStructSetter(type, member, name)
 
-CP_DefineConstraintStructGetter(cpBody*, a, A);
-CP_DefineConstraintStructGetter(cpBody*, b, B);
-CP_DefineConstraintStructProperty(cpFloat, maxForce, MaxForce);
-CP_DefineConstraintStructProperty(cpFloat, errorBias, ErrorBias);
-CP_DefineConstraintStructProperty(cpFloat, maxBias, MaxBias);
-CP_DefineConstraintStructProperty(cpConstraintPreSolveFunc, preSolve, PreSolveFunc);
-CP_DefineConstraintStructProperty(cpConstraintPostSolveFunc, postSolve, PostSolveFunc);
-CP_DefineConstraintStructProperty(cpDataPointer, data, UserData);
+//CP_DefineConstraintStructGetter(cpBody*, a, A);
+cpBody* cpConstraintGetA(cpContraint* constraint);
+
+//CP_DefineConstraintStructGetter(cpBody*, b, B);
+cpBody* cpConstraintGetB(cpContraint* constraint);
+
+/* CP_DefineConstraintStructProperty(cpFloat, maxForce, MaxForce); */
+cpFloat cpConstraintGetMaxForce(cpContraint* constraint);
+void cpConstraintSetMaxForce(cpContraint* constraint, cpFloat value);
+
+/* CP_DefineConstraintStructProperty(cpFloat, errorBias, ErrorBias); */
+cpFloat cpConstraintGetErrorBias(cpContraint* constraint);
+void cpConstraintSetErrorBias(cpContraint* constraint, cpFloat value);
+
+/* CP_DefineConstraintStructProperty(cpFloat, maxBias, MaxBias); */
+cpFloat cpConstraintGetMaxBias(cpContraint* constraint);
+void cpConstraintSetMaxBias(cpContraint* constraint, cpFloat value);
+
+/* CP_DefineConstraintStructProperty(cpConstraintPreSolveFunc, preSolve, PreSolveFunc); */
+cpConstraintPreSolveFunc cpConstraintGetPreSolveFunc(cpContraint* constraint);
+void cpConstraintSetPreSolveFunc(cpContraint* constraint, cpConstraintPreSolveFunc val);
+
+/* CP_DefineConstraintStructProperty(cpConstraintPostSolveFunc, postSolve, PostSolveFunc); */
+cpConstraintPostSolveFunc cpConstraintGetPostSolveFunc(cpContraint* constraint);
+void cpConstraintSetPostSolveFunc(cpContraint* constraint, cpConstraintPostSolveFunc val);
+
+/* CP_DefineConstraintStructProperty(cpDataPointer, data, UserData); */
+cpDataPointer cpConstraintGetUserData(cpContraint* constraint);
+void cpConstraintSetUserData(cpContraint* constraint, cpDataPointer val);
 
 // Get the last impulse applied by this constraint.
 static inline cpFloat cpConstraintGetImpulse(cpConstraint *constraint)
@@ -127,25 +148,25 @@ static inline cpFloat cpConstraintGetImpulse(cpConstraint *constraint)
 
 /// @}
 
-#define cpConstraintCheckCast(constraint, struct) \
-	cpAssertHard(constraint->CP_PRIVATE(klass) == struct##GetClass(), "Constraint is not a "#struct)
+/* #define cpConstraintCheckCast(constraint, struct) \ */
+/* 	cpAssertHard(constraint->klass) == struct##GetClass(), "Constraint is not a "#struct) */
 
-#define CP_DefineConstraintGetter(struct, type, member, name) \
-static inline type struct##Get##name(const cpConstraint *constraint){ \
-	cpConstraintCheckCast(constraint, struct); \
-	return ((struct *)constraint)->member; \
-}
+/* #define CP_DefineConstraintGetter(struct, type, member, name) \ */
+/* static inline type struct##Get##name(const cpConstraint *constraint){ \ */
+/* 	cpConstraintCheckCast(constraint, struct); \ */
+/* 	return ((struct *)constraint)->member; \ */
+/* } */
 
-#define CP_DefineConstraintSetter(struct, type, member, name) \
-static inline void struct##Set##name(cpConstraint *constraint, type value){ \
-	cpConstraintCheckCast(constraint, struct); \
-	cpConstraintActivateBodies(constraint); \
-	((struct *)constraint)->member = value; \
-}
+/* #define CP_DefineConstraintSetter(struct, type, member, name) \ */
+/* static inline void struct##Set##name(cpConstraint *constraint, type value){ \ */
+/* 	cpConstraintCheckCast(constraint, struct); \ */
+/* 	cpConstraintActivateBodies(constraint); \ */
+/* 	((struct *)constraint)->member = value; \ */
+/* } */
 
-#define CP_DefineConstraintProperty(struct, type, member, name) \
-CP_DefineConstraintGetter(struct, type, member, name) \
-CP_DefineConstraintSetter(struct, type, member, name)
+/* #define CP_DefineConstraintProperty(struct, type, member, name) \ */
+/* CP_DefineConstraintGetter(struct, type, member, name) \ */
+/* CP_DefineConstraintSetter(struct, type, member, name) */
 
 #include "cpPinJoint.h"
 #include "cpSlideJoint.h"

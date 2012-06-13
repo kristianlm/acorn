@@ -45,9 +45,18 @@ cpSlideJoint* cpSlideJointInit(cpSlideJoint *joint, cpBody *a, cpBody *b, cpVect
 /// Allocate and initialize a slide joint.
 cpConstraint* cpSlideJointNew(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat min, cpFloat max);
 
-CP_DefineConstraintProperty(cpSlideJoint, cpVect, anchr1, Anchr1);
-CP_DefineConstraintProperty(cpSlideJoint, cpVect, anchr2, Anchr2);
-CP_DefineConstraintProperty(cpSlideJoint, cpFloat, min, Min);
-CP_DefineConstraintProperty(cpSlideJoint, cpFloat, max, Max);
 
+/* CP_DefineConstraintProperty(cpSlideJoint, cpVect, anchr1, Anchr1); */
+/* CP_DefineConstraintProperty(cpSlideJoint, cpVect, anchr2, Anchr2); */
+/* CP_DefineConstraintProperty(cpSlideJoint, cpFloat, min, Min); */
+/* CP_DefineConstraintProperty(cpSlideJoint, cpFloat, max, Max); */
+
+cpVect cpSlideJointGetAnchr1(const cpConstraint *constraint); 
+void cpSlideJointSetAnchr1(cpConstraint *constraint, cpVect value);;
+cpVect cpSlideJointGetAnchr2(const cpConstraint *constraint); 
+void cpSlideJointSetAnchr2(cpConstraint *constraint, cpVect value);;
+cpFloat cpSlideJointGetMin(const cpConstraint *constraint); 
+void cpSlideJointSetMin(cpConstraint *constraint, cpFloat value);;
+cpFloat cpSlideJointGetMax(const cpConstraint *constraint); 
+void cpSlideJointSetMax(cpConstraint *constraint, cpFloat value);;
 /// @}

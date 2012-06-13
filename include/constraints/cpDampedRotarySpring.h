@@ -47,9 +47,19 @@ cpDampedRotarySpring* cpDampedRotarySpringInit(cpDampedRotarySpring *joint, cpBo
 /// Allocate and initialize a damped rotary spring.
 cpConstraint* cpDampedRotarySpringNew(cpBody *a, cpBody *b, cpFloat restAngle, cpFloat stiffness, cpFloat damping);
 
-CP_DefineConstraintProperty(cpDampedRotarySpring, cpFloat, restAngle, RestAngle);
-CP_DefineConstraintProperty(cpDampedRotarySpring, cpFloat, stiffness, Stiffness);
-CP_DefineConstraintProperty(cpDampedRotarySpring, cpFloat, damping, Damping);
-CP_DefineConstraintProperty(cpDampedRotarySpring, cpDampedRotarySpringTorqueFunc, springTorqueFunc, SpringTorqueFunc);
+
+/* CP_DefineConstraintProperty(cpDampedRotarySpring, cpFloat, restAngle, RestAngle); */
+/* CP_DefineConstraintProperty(cpDampedRotarySpring, cpFloat, stiffness, Stiffness); */
+/* CP_DefineConstraintProperty(cpDampedRotarySpring, cpFloat, damping, Damping); */
+/* CP_DefineConstraintProperty(cpDampedRotarySpring, cpDampedRotarySpringTorqueFunc, springTorqueFunc, SpringTorqueFunc); */
+
+cpFloat cpDampedRotarySpringGetRestAngle(const cpConstraint *constraint);
+void cpDampedRotarySpringSetRestAngle(cpConstraint *constraint, cpFloat value);
+cpFloat cpDampedRotarySpringGetStiffness(const cpConstraint *constraint);
+void cpDampedRotarySpringSetStiffness(cpConstraint *constraint, cpFloat value);
+cpFloat cpDampedRotarySpringGetDamping(const cpConstraint *constraint);
+void cpDampedRotarySpringSetDamping(cpConstraint *constraint, cpFloat value);
+cpDampedRotarySpringTorqueFunc cpDampedRotarySpringGetSpringTorqueFunc(const cpConstraint *constraint);
+void cpDampedRotarySpringSetSpringTorqueFunc(cpConstraint *constraint, cpDampedRotarySpringTorqueFunc value);
 
 /// @}

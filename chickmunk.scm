@@ -35,6 +35,7 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 (bind-rename/pattern "make-cp" "make")
 (bind-options default-renaming: "cp:" )
 (bind-include-path "./include")
+(bind-include-path "./include/constraints/")
 (bind-file "./include/chipmunk.h")
 
 ;; callback used by our C-function. It returns itself, thus, the

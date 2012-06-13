@@ -45,8 +45,15 @@ cpPinJoint* cpPinJointInit(cpPinJoint *joint, cpBody *a, cpBody *b, cpVect anchr
 /// Allocate and initialize a pin joint.
 cpConstraint* cpPinJointNew(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2);
 
-CP_DefineConstraintProperty(cpPinJoint, cpVect, anchr1, Anchr1);
-CP_DefineConstraintProperty(cpPinJoint, cpVect, anchr2, Anchr2);
-CP_DefineConstraintProperty(cpPinJoint, cpFloat, dist, Dist);
+
+/* CP_DefineConstraintProperty(cpPinJoint, cpVect, anchr1, Anchr1); */
+/* CP_DefineConstraintProperty(cpPinJoint, cpVect, anchr2, Anchr2); */
+/* CP_DefineConstraintProperty(cpPinJoint, cpFloat, dist, Dist); */
+cpVect cpPinJointGetAnchr1(const cpConstraint *constraint); 
+void cpPinJointSetAnchr1(cpConstraint *constraint, cpVect value);
+cpVect cpPinJointGetAnchr2(const cpConstraint *constraint); 
+void cpPinJointSetAnchr2(cpConstraint *constraint, cpVect value);
+cpFloat cpPinJointGetDist(const cpConstraint *constraint); 
+void cpPinJointSetDist(cpConstraint *constraint, cpFloat value);
 
 ///@}

@@ -47,12 +47,22 @@ cpGrooveJoint* cpGrooveJointInit(cpGrooveJoint *joint, cpBody *a, cpBody *b, cpV
 /// Allocate and initialize a groove joint.
 cpConstraint* cpGrooveJointNew(cpBody *a, cpBody *b, cpVect groove_a, cpVect groove_b, cpVect anchr2);
 
-CP_DefineConstraintGetter(cpGrooveJoint, cpVect, grv_a, GrooveA);
+
+
+
+/* CP_DefineConstraintGetter(cpGrooveJoint, cpVect, grv_a, GrooveA); */
+cpVect cpGrooveJointGetGrooveA(const cpConstraint *constraint);;
 /// Set endpoint a of a groove joint's groove
 void cpGrooveJointSetGrooveA(cpConstraint *constraint, cpVect value);
-CP_DefineConstraintGetter(cpGrooveJoint, cpVect, grv_b, GrooveB);
-/// Set endpoint b of a groove joint's groove
-void cpGrooveJointSetGrooveB(cpConstraint *constraint, cpVect value);
-CP_DefineConstraintProperty(cpGrooveJoint, cpVect, anchr2, Anchr2);
 
+
+/* CP_DefineConstraintGetter(cpGrooveJoint, cpVect, grv_b, GrooveB); */
+cpVect cpGrooveJointGetGrooveB(const cpConstraint *constraint);;
+
+// Set endpoint b of a groove joint's groove
+void cpGrooveJointSetGrooveB(cpConstraint *constraint, cpVect value);
+/* CP_DefineConstraintProperty(cpGrooveJoint, cpVect, anchr2, Anchr2); */
+
+cpVect cpGrooveJointGetAnchr2(const cpConstraint *constraint); 
+void cpGrooveJointSetAnchr2(cpConstraint *constraint, cpVect value);;
 /// @}
