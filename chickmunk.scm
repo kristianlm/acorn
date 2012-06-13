@@ -33,7 +33,7 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 
 (bind-rename/pattern "^cp" "")
 (bind-rename/pattern "make-cp" "make")
-(bind-options default-renaming: "cp:" )
+(bind-options default-renaming: "" )
 (bind-include-path "./include")
 (bind-include-path "./include/constraints/")
 (bind-file "./include/chipmunk.h")
@@ -52,22 +52,22 @@ void forEachConstraint (cpSpace *space, C_word callback) {
     (set! self cbwrap)
     cbwrap))
 
-(define (cp:for-each/shape space callback) 
+(define (for-each/shape space callback) 
   ((foreign-safe-lambda void "forEachShape" (c-pointer "cpSpace") scheme-object)
    space (callback-wrapper callback)))
 
-(define (cp:for-each/body space callback)
+(define (for-each/body space callback)
   ((foreign-safe-lambda void "forEachBody" (c-pointer "cpSpace") scheme-object)
    space (callback-wrapper callback)))
 
-(define (cp:for-each/constraint space callback)
+(define (for-each/constraint space callback)
   ((foreign-safe-lambda void "forEachConstraint" (c-pointer "cpSpace") scheme-object)
    space (callback-wrapper callback)))
 
-(define cp:v cp:make-vect)
-(define cp:vzero (cp:make-vect 0 0))
+(define v make-vect)
+(define vzero (make-vect 0 0))
 
-(define cp:use-doubles (foreign-value "CP_USE_DOUBLES" int))
-(define cp:sizeof-vect (foreign-value "sizeof(struct cpVect)" int))
+(define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
+(define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
 
 )
