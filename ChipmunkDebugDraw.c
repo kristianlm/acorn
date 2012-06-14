@@ -246,6 +246,7 @@ void ChipmunkDebugDrawFatSegment(cpVect a, cpVect b, cpFloat radius, Color lineC
 void ChipmunkDebugDrawPolygon(int count, cpVect *verts, Color lineColor, Color fillColor)
 {
 #if CP_USE_DOUBLES
+#error "using doubles not supported. your app will crash if bindings and libray use different cpFloats"
 	glVertexPointer(2, GL_DOUBLE, 0, verts);
 #else
 	glVertexPointer(2, GL_FLOAT, 0, verts);
