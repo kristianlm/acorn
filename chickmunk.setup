@@ -1,14 +1,21 @@
 
 
-(compile -s -lchipmunk chickmunk.scm -j chickmunk)
+;; chickmunk
+(compile -s -lchipmunk chickmunk.scm
+         -C -DCP_USE_DOUBLES=0
+         -C -DCP_ALLOW_PRIVATE_ACCESS=1
+         -J)
 (compile -s chickmunk.import.scm )
 
 (install-extension 'chickmunk 
                    '("chickmunk.so" "chickmunk.import.so"))
 
 
+
+;;chickmunk-draw
 (compile -s chickmunk-draw.scm -lchipmunk
-         ChipmunkDebugDraw.c -C --std=c99
+         ChipmunkDebugDraw.c 
+         -C --std=c99 -C -DCP_USE_DOUBLES=0
          -J)
 
 (compile -s chickmunk-draw.import.scm)

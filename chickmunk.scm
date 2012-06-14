@@ -7,9 +7,6 @@
   
 
 #>
-
-#define CP_USE_DOUBLES 0
-#define CP_ALLOW_PRIVATE_ACCESS 1
 #include <chipmunk/chipmunk.h>
 
 void cbSpaceEachPointerCallback(void *pointer, /*body,shape,contraint*/
