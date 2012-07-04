@@ -76,53 +76,134 @@ void forEachConstraint (cpSpace *space, C_word callback) {
           blob->f32vector/shared
           locative->object))
 
-(define (body-info body)
-  (let ([l vect-locative->list])
-    `((sleeping ,(body-is-sleeping body))
-      (static ,(body-is-static body))
-      (rogue ,(body-is-rogue body))
-      (mass  ,(body-get-mass body))
-      (moment ,(body-get-moment body))
-      (pos ,(l (body-get-pos body)))
-      (vel ,(l (body-get-vel body)))
-      (force ,(l (body-get-force body)))
-      (angle ,(body-get-angle body))
-      (ang-vel ,(body-get-ang-vel body))
-      (torque ,(body-get-torque body))
-      (vel-limit ,(body-get-vel-limit body))
-      (ang-vel-limit ,(body-get-ang-vel-limit body))
-      (user-data ,(body-get-user-data body))
-      (shapes (TODO)))))
 
-;; sample usage:
-;; (body-info-set! body `((mass 1)
-;;                        (pos (1 1.2))
-;;                        (vel (1.1 0.2)))
-(define (body-info-set! body assocl)
-  (let ([tuple->v (lambda (pos-tuple)
-                    (v (car pos-tuple) (cadr pos-tuple)))])
-    (map
-     (lambda (tuple)
-       (let ([prop (car tuple)]
-             [value (cadr tuple)])
-         (list prop
-               (case prop
-                 ([sleeping] "not supported")
-                 ([static]  "not supprted")
-                 ([mass] (body-set-mass body value))
-                 ([moment] (body-set-moment body value))
-                 ([pos] (body-set-pos body (tuple->v value)))
-                 ([vel] (body-set-vel body (tuple->v value)))
-                 ([force] (body-set-force body (tuple->v value)))
-                 ([angle] (body-set-angle body value))
-                 ([ang-vel] (body-set-ang-vel body value))
-                 ([torque] (body-set-torque body value))
-                 ([vel-limit] (body-set-vel-limit body value))
-                 ([ang-vel-limit] (body-set-ang-vel-limit body value))
-                 ([user-data] (body-set-user-data body value))
-                 ([shapes] "not supported")
-                 (else "unknown")))))
-     assocl)))
+;; neat little bugger:
+;; expand any macros within lst once
+;; (expand ...) does this only on first form
+;; useful if you want to expand macros once, twice etc (use nested
+;; calls) and if expand* is over-kill. eval into your repl
+#|(define (my-expand lst)
+(if (list? lst) 
+    (expand (map my-expand lst))
+    lst))|#
+
+;; like list-ref but returns #f instead of failing
+;; and returns original item on non-lists if idx == 0
+;; (list-ref-maybe '(mass a b c) 3) ==> c
+;; (list-ref-maybe '(mass a b c) 4) ==> #f
+;; (list-ref-maybe 'mass 0) ==> mass
+;; (list-ref-maybe 'mass 2) ==> #f
+(define-for-syntax (list-ref-maybe lst idx . default)
+  (if (list? lst)  
+      (and (> (length lst) idx) (list-ref lst idx))
+      (and (= idx 0) lst)))
+
+;; generate a lambda which accepts a subject (pointer) and new properties (alist)
+(define-syntax (make-info-setter x r t)
+  (let* ([spec (caddr x)]
+         [setter-prefix (cadr x)])
+    `(lambda (struct info)
+       (map
+        (lambda (info-tuple)
+          (let ([prop (car info-tuple)]
+                [new-value (cadr info-tuple)])
+            (list prop
+                  (case prop
+                    ,@(append
+                       (map
+                        ;; spec-item comes from macro-call,
+                        ;; defines field-name, optional
+                        ;; converters and getter/setter proc
+                        ;; (defaults to (conc setter-prefix field))
+                        (lambda (spec-item)
+                          (let* ([field (list-ref-maybe spec-item 0)] 
+                                 [set-conv (list-ref-maybe spec-item 2)] 
+                                 [setter (list-ref-maybe spec-item 4)]
+                                 [setter-proc-name
+                                  (or setter 
+                                      (string->symbol (conc setter-prefix field)))]
+                                 [setter-proc-call
+                                  (if (string? setter-proc-name)
+                                      ;; proc is string => use
+                                      ;; it as error msg
+                                      setter-proc-name
+                                      (list setter-proc-name 'struct
+                                            (if set-conv
+                                                (list set-conv 'new-value)
+                                                'new-value)))])
+                            `((,field) ,setter-proc-call)))
+                        spec)
+                       '((else "unknown")))))))
+        info))))
+
+;; generate a lambda which accepts a subject (pointer) and returns all its
+;; properties as an alist
+(define-syntax (make-info-getter x r t)
+  (let* ([spec (caddr x)]
+         [getter-prefix (cadr x)])
+    `(lambda (struct)
+       (list ,@(map (lambda (item)
+                      (let* ([field (list-ref-maybe item 0)]
+                             [get-conv (list-ref-maybe item 1)] 
+                             [getter (list-ref-maybe item 3)] 
+                             [getter-proc-name (or getter 
+                                                   (string->symbol (conc getter-prefix field)))]
+                             [getter-proc-call (list getter-proc-name 'struct)])
+                        `(list (quote ,field)
+                               ;; call getter with body as parameter
+                               ,(if get-conv
+                                    `(,get-conv ,getter-proc-call)
+                                    getter-proc-call))))
+                    spec)))))
+
+(define-syntax (define-info-supporters x r t)
+  (let ([get-info-name (list-ref x 1)]
+        [set-info-name (list-ref x 2)]
+        [getter-prefix (list-ref x 3)]
+        [setter-prefix (list-ref x 4)]
+        [spec (list-ref x 5)])
+    `(begin
+       (define ,get-info-name (make-info-getter ,getter-prefix ,spec))
+       (define ,set-info-name (make-info-setter ,setter-prefix ,spec)))))
+
+(declare (hide loc->lis lis->loc))
+(define loc->lis vect-locative->list)
+(define (lis->loc pos-tuple)
+  (v (car pos-tuple) (cadr pos-tuple)))
+
+
+(define-info-supporters
+  space-properties space-properties-set!
+  space-get- space-set-
+  (  (gravity loc->lis lis->loc)
+     iterations
+     damping 
+     idle-speed-threshold 
+     sleep-time-threshold
+     collision-slop
+     collision-bias
+     collision-persistence
+     enable-contact-graph
+     user-data))
+
+(define-info-supporters
+  body-properties body-properties-set!
+  body-get- body-set-
+  (  (sleeping #f #f body-is-sleeping "not supported")
+     (static   #f #f body-is-static "not supported")
+     (rogue    #f #f body-is-rogue "not supported")
+     (pos      loc->lis lis->loc)
+     (vel      loc->lis lis->loc)
+     mass
+     moment
+     angle
+     ang-vel
+     torque
+     force
+     vel-limit
+     ang-vel-limit
+     user-data))
+
 
 (define (shape-get-type shape)
   (let ([type ((foreign-lambda* integer (((c-pointer "cpShape") shape))
