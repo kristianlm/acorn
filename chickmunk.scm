@@ -71,12 +71,6 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 (define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
 (define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
 
-(define vect-locative->list
-  (compose f32vector->list
-          blob->f32vector/shared
-          locative->object))
-
-
 ;; neat little bugger:
 ;; expand any macros within lst once
 ;; (expand ...) does this only on first form
@@ -166,16 +160,21 @@ void forEachConstraint (cpSpace *space, C_word callback) {
        (define ,get-info-name (make-info-getter ,getter-prefix ,spec))
        (define ,set-info-name (make-info-setter ,setter-prefix ,spec)))))
 
-(declare (hide loc->lis lis->loc))
-(define loc->lis vect-locative->list)
-(define (lis->loc pos-tuple)
+(declare (hide vloc->list list->vloc))
+;; convenience functions for cpVect struct -> list
+(define vloc->list
+  (compose f32vector->list
+           blob->f32vector/shared
+           locative->object))
+
+(define (list->vloc pos-tuple)
   (v (car pos-tuple) (cadr pos-tuple)))
 
 
 (define-info-supporters
   space-properties space-properties-set!
   space-get- space-set-
-  (  (gravity loc->lis lis->loc)
+  (  (gravity vloc->list list->vloc)
      iterations
      damping 
      idle-speed-threshold 
@@ -192,8 +191,8 @@ void forEachConstraint (cpSpace *space, C_word callback) {
   (  (sleeping #f #f body-is-sleeping "not supported")
      (static   #f #f body-is-static "not supported")
      (rogue    #f #f body-is-rogue "not supported")
-     (pos      loc->lis lis->loc)
-     (vel      loc->lis lis->loc)
+     (pos      vloc->list list->vloc)
+     (vel      vloc->list list->vloc)
      mass
      moment
      angle
@@ -216,12 +215,12 @@ void forEachConstraint (cpSpace *space, C_word callback) {
 
 (define (poly-shape-get-verts shape)
   (map (compose
-        vect-locative->list
+        vloc->list
         (cut poly-shape-get-vert shape <>))
        (iota (poly-shape-get-num-verts shape))) )
 
 (define (shape-info shape)
-    (let* ([l vect-locative->list]
+    (let* ([l vloc->list]
            [type (shape-get-type shape)]
            [shape-info-all
             (lambda ()
