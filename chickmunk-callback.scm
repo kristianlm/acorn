@@ -84,11 +84,11 @@
 ;; space body, shape and constrains lists
 ;; define convenience functions to get lists of global objects
 (define (make-callback->list-proc for-each-proc #!optional (conv-proc (lambda (obj) obj)))
-  (lambda (subject) ; subject is space or body
+  (lambda args
      (let ([tmp-list '()])
-       (for-each-proc subject
-                      (lambda args
-                        (set! tmp-list (cons (apply conv-proc args) tmp-list))))
+       (apply for-each-proc (append args
+                             (list (lambda args
+                                (set! tmp-list (cons (apply conv-proc args) tmp-list))))))
        tmp-list)))
 
 (define space-bodies      (make-callback->list-proc for-each-body))
