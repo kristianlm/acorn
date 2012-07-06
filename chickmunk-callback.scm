@@ -83,14 +83,14 @@
 ;; **********************
 ;; space body, shape and constrains lists
 ;; define convenience functions to get lists of global objects
-(define-syntax (make-callback->list-proc x r t)
-  (let ([nm (cadr x)])
-    `(lambda (space)
-       (let ([tmp-list '()])
-         (,nm space (lambda (obj) (set! tmp-list (cons obj tmp-list))))
-         tmp-list))))
+(define (make-callback->list-proc for-each-proc #!optional (conv-proc (lambda (obj) obj)))
+  (lambda (subject) ; subject is space or body
+     (let ([tmp-list '()])
+       (for-each-proc subject
+                      (lambda args
+                        (set! tmp-list (cons (apply conv-proc args) tmp-list))))
+       tmp-list)))
 
-(define bodies (make-callback->list-proc for-each-body))
-(define shapes (make-callback->list-proc for-each-shape))
-(define constraints (make-callback->list-proc for-each-constraint))
-
+(define space-bodies      (make-callback->list-proc for-each-body))
+(define space-shapes      (make-callback->list-proc for-each-shape))
+(define space-constraints (make-callback->list-proc for-each-constraint))
