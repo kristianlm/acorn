@@ -1,6 +1,6 @@
   [Chicken Scheme]: http://call-cc.org/
   [Chipmunk]: http://chipmunk-physics.net/
-  [chicken-bind]:(http://wiki.call-cc.org/eggref/4/bind)
+  [chicken-bind]:http://wiki.call-cc.org/eggref/4/bind
 
 # [Chicken Scheme] bindings for [Chipmunk]
 
