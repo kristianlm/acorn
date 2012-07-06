@@ -94,3 +94,11 @@
 (define space-bodies      (make-callback->list-proc for-each-body))
 (define space-shapes      (make-callback->list-proc for-each-shape))
 (define space-constraints (make-callback->list-proc for-each-constraint))
+
+(declare (hide get-body-subject-callback))
+(define (get-body-subject-callback body subject)
+  subject)
+
+(define body-shapes      (make-callback->list-proc body-for-each-shape      get-body-subject-callback))
+(define body-constraints (make-callback->list-proc body-for-each-constraint get-body-subject-callback))
+(define body-arbiters    (make-callback->list-proc body-for-each-arbiter    get-body-subject-callback))
