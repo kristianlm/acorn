@@ -102,3 +102,24 @@
 (define body-shapes      (make-callback->list-proc body-for-each-shape      get-body-subject-callback))
 (define body-constraints (make-callback->list-proc body-for-each-constraint get-body-subject-callback))
 (define body-arbiters    (make-callback->list-proc body-for-each-arbiter    get-body-subject-callback))
+
+(define-external (cb_space_point_query ((c-pointer "cpShape") shape)
+                                       ((c-pointer void) data))
+  void
+  (call-and-catch shape))
+
+(define for-each-point-query
+  (lambda (space point layers group callback)
+    (start-safe-callbacks callback
+                          ((foreign-safe-lambda* void (((c-pointer void) subject) ; space / body
+                                                       ((c-pointer "cpVect") point)
+                                                       (unsigned-int layers)
+                                                       (unsigned-int group)
+                                                       ((c-pointer void) foreign_callback)
+                                                       ((c-pointer void) data))
+                                                 "cpSpacePointQuery"
+                                                 "(subject, *point, layers, group"
+                                                 "   ,foreign_callback, (void*)0);")
+                           space point layers group (foreign-value "cb_space_point_query" c-pointer) #f))
+    ))
+
