@@ -121,3 +121,6 @@
                            space point layers group (foreign-value "cb_space_point_query" c-pointer)))
     ))
 
+;; let's keep argument names for user convenience
+(define (point-query space point layers group)
+  ((make-callback->list-proc for-each-point-query) space point layers group))
