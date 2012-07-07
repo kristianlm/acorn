@@ -112,21 +112,18 @@
        (define ,get-info-name (make-info-getter ,getter-prefix ,spec))
        (define ,set-info-name (make-info-setter ,setter-prefix ,spec)))))
 
-(declare (hide vloc->list list->vloc))
 ;; convenience functions for cpVect struct -> list
-(define vloc->list
-  (compose f32vector->list
-           blob->f32vector/shared
-           locative->object))
+(define (vect->list vect)
+  (list (vect-x vect) (vect-y vect)))
 
-(define (list->vloc pos-tuple)
+(define (list->vect pos-tuple)
   (v (car pos-tuple) (cadr pos-tuple)))
 
 
 (define-info-supporters
   space-properties space-properties-set!
   space-get- space-set-
-  (  (gravity vloc->list list->vloc)
+  (  (gravity vect->list list->vect)
      iterations
      damping 
      idle-speed-threshold 
@@ -143,8 +140,8 @@
   (  (sleeping #f #f body-is-sleeping "not supported")
      (static   #f #f body-is-static "not supported")
      (rogue    #f #f body-is-rogue "not supported")
-     (pos      vloc->list list->vloc)
-     (vel      vloc->list list->vloc)
+     (pos      vect->list list->vect)
+     (vel      vect->list list->vect)
      mass
      moment
      angle
@@ -167,12 +164,12 @@
 
 (define (poly-shape-get-verts shape)
   (map (compose
-        vloc->list
+        vect->list
         (cut poly-shape-get-vert shape <>))
        (iota (poly-shape-get-num-verts shape))) )
 
 (define (shape-info shape)
-    (let* ([l vloc->list]
+    (let* ([l vect->list]
            [type (shape-get-type shape)]
            [shape-info-all
             (lambda ()
@@ -187,7 +184,7 @@
                 (layers ,(sprintf "~B" (shape-get-layers shape)))))]
            [shape-info-circle
             (lambda ()
-              `((offset ,(vloc->list (circle-shape-get-offset shape)))
+              `((offset ,(vect->list (circle-shape-get-offset shape)))
                 (radius ,(circle-shape-get-radius shape))))]
            [shape-info-poly
             (lambda ()
