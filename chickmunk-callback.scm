@@ -34,10 +34,9 @@
     `(lambda (space callback)
        (start-safe-callbacks callback
         ((foreign-safe-lambda* void (((c-pointer void) subject) ; space / body
-                                     ((c-pointer void) foreign_callback)
-                                     ((c-pointer void) data))
+                                     ((c-pointer void) foreign_callback))
                                ,(conc foreign-each "(subject, foreign_callback, (void*)0);"))
-         space (foreign-value ,foreign-callback c-pointer) #f)))
+         space (foreign-value ,foreign-callback c-pointer))))
     ))
 
 ;; call *callback-proc*, but handle any exceptions by storing them for
@@ -115,11 +114,10 @@
                                                        ((c-pointer "cpVect") point)
                                                        (unsigned-int layers)
                                                        (unsigned-int group)
-                                                       ((c-pointer void) foreign_callback)
-                                                       ((c-pointer void) data))
+                                                       ((c-pointer void) foreign_callback))
                                                  "cpSpacePointQuery"
                                                  "(subject, *point, layers, group"
                                                  "   ,foreign_callback, (void*)0);")
-                           space point layers group (foreign-value "cb_space_point_query" c-pointer) #f))
+                           space point layers group (foreign-value "cb_space_point_query" c-pointer)))
     ))
 
