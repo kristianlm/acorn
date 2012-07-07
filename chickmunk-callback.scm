@@ -124,3 +124,40 @@
 ;; let's keep argument names for user convenience
 (define (point-query space point layers group)
   ((make-callback->list-proc for-each-point-query) space point layers group))
+
+;; **************************
+;; Callbacks for segment query
+#>
+void cb_space_segment_query(cpShape*, float, float, float);
+static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVect n, void* data) {
+  cb_space_segment_query(shape, t, n.x, n.y);
+}
+<#
+
+(define-external (cb_space_segment_query ((c-pointer "cpShape") shape)
+                                         (float t)
+                                         (float nx)
+                                         (float ny))
+  void
+  (call-and-catch shape t (list nx ny)))
+
+
+
+(define (for-each-segment-query space start-point end-point layers group callback)
+  (start-safe-callbacks callback
+                        ((foreign-safe-lambda* void (((c-pointer "cpSpace") space)
+                                                ((c-pointer "cpVect") start_point)
+                                                ((c-pointer "cpVect") end_point)
+                                                (unsigned-int layers)
+                                                (unsigned-int group))
+                                          "cpSpaceSegmentQuery(space, *start_point, *end_point,"
+                                          "layers, group,"
+                                          "(cpSpaceSegmentQueryFunc)cb_space_segment_query_adapter,"
+                                          "(void*)0);")
+                         space start-point end-point layers group)))
+
+
+(define (segment-query space start-point end-point layers group)
+  ((make-callback->list-proc
+    for-each-segment-query (lambda s-t-n s-t-n) ; make list of all callback args
+    ) space start-point end-point layers group))
