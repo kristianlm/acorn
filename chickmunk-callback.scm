@@ -39,10 +39,10 @@
          space (foreign-value ,foreign-callback c-pointer))))
     ))
 
-;; call *callback-proc*, but handle any exceptions by storing them for
+;; Call *callback-proc*, but handle any exceptions by storing them for
 ;; later. we want to finish all for-each callbacks so that chipmunk
 ;; can return and cleanup (unlock space etc). if an error has occured,
-;; ignore do nothing on subsequent callbacks
+;; do nothing on subsequent callbacks
 (define (call-and-catch . args)
   (if (not *exception*)
       (handle-exceptions exn
