@@ -196,6 +196,9 @@ cpShape* cpCircleShapeNew(cpBody *body, cpFloat radius, cpVect offset);
 /* CP_DeclareShapeGetter(cpCircleShape, cpVect, Offset); */
 /* CP_DeclareShapeGetter(cpCircleShape, cpFloat, Radius); */
 
+cpVect cpCircleShapeGetOffset(cpShape *shape);
+cpFloat cpCircleShapeGetRadius(cpShape *shape);
+
 /// @}
 /// @defgroup cpSegmentShape cpSegmentShape
 

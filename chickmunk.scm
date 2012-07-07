@@ -185,6 +185,10 @@
                 (collision-type ,(shape-get-collision-type shape))
                 (group ,(shape-get-group shape))
                 (layers ,(sprintf "~B" (shape-get-layers shape)))))]
+           [shape-info-circle
+            (lambda ()
+              `((offset ,(vloc->list (circle-shape-get-offset shape)))
+                (radius ,(circle-shape-get-radius shape))))]
            [shape-info-poly
             (lambda ()
               `((vertices ,(poly-shape-get-verts shape))))]
@@ -193,7 +197,7 @@
               `())])
       (append (shape-info-all) (case type
                                  ([poly] (shape-info-poly))
-                                 ([circle] '())
+                                 ([circle] (shape-info-circle))
                                  ([segment] (shape-info-segment))))))
 
 (include "chickmunk-callback.scm")
