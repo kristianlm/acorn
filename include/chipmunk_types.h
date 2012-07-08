@@ -144,14 +144,14 @@ typedef uintptr_t cpHashValue;
 	typedef CP_COLLISION_TYPE_TYPE cpCollisionType;
 #else
 /// Type used for cpSpace.collision_type.
-	typedef uintptr_t cpCollisionType;
+	typedef unsigned int cpCollisionType;
 #endif
 
 #ifdef CP_GROUP_TYPE
 	typedef CP_GROUP_TYPE cpGroup;
 #else
 /// Type used for cpShape.group.
-	typedef uintptr_t cpGroup;
+	typedef unsigned int cpGroup;
 #endif
 
 #ifdef CP_LAYERS_TYPE
