@@ -49,37 +49,39 @@
   (let* ([spec (caddr x)]
          [setter-prefix (cadr x)])
     `(lambda (struct info)
-       (map
+       (filter-map
         (lambda (info-tuple)
           (let ([prop (car info-tuple)]
                 [new-value (cadr info-tuple)])
-            (list prop
-                  (case prop
-                    ,@(append
-                       (map
-                        ;; spec-item comes from macro-call,
-                        ;; defines field-name, optional
-                        ;; converters and getter/setter proc
-                        ;; (getter/setter defaults to (conc setter-prefix field))
-                        (lambda (spec-item)
-                          (let* ([field (list-ref-maybe spec-item 0)] 
-                                 [set-conv (list-ref-maybe spec-item 2)] 
-                                 [setter (list-ref-maybe spec-item 4)]
-                                 [setter-proc-name
-                                  (or setter 
-                                      (string->symbol (conc setter-prefix field)))]
-                                 [setter-proc-call
-                                  (if (string? setter-proc-name)
-                                      ;; proc is string => use
-                                      ;; it as error msg
-                                      setter-proc-name
-                                      (list setter-proc-name 'struct
-                                            (if set-conv
-                                                (list set-conv 'new-value)
-                                                'new-value)))])
-                            `((,field) ,setter-proc-call)))
-                        spec)
-                       '((else "unknown")))))))
+            (case prop
+              ,@(append
+                 (map
+                  ;; spec-item comes from macro-call,
+                  ;; defines field-name, optional
+                  ;; converters and getter/setter proc
+                  ;; (getter/setter defaults to (conc setter-prefix field))
+                  (lambda (spec-item)
+                    (let* ([field (list-ref-maybe spec-item 0)]
+                           [set-conv (list-ref-maybe spec-item 2)]
+                           [setter (list-ref-maybe spec-item 4)]
+                           [setter-proc-name
+                            (or setter
+                                (string->symbol (conc setter-prefix field)))]
+                           [setter-proc-call
+                            (if (string? setter-proc-name)
+                                ;; proc is string => use
+                                ;; it as error msg
+                                `(list (quote ,field) ,setter-proc-name)
+                                `(begin
+                                   (,setter-proc-name struct
+                                                      ,(if set-conv
+                                                           (list set-conv 'new-value)
+                                                           'new-value))
+                                   (quote ,field)))])
+                      `((,field) ,setter-proc-call)))
+                  spec)
+                 ;; return #f for unknown properties, will disappear through filter-map
+                 '((else #f))))))
         info))))
 
 ;; generate a lambda which accepts a subject (pointer) and returns all its
