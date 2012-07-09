@@ -103,3 +103,26 @@
                               (offset (5.0 6.0))
                               (radius 4.0))
                             (shape-properties circle)))
+
+ (define segment (segment-shape-new body (v 1 2) (v 3 4) 1))
+ 
+ (test-assert "segment shape init"
+              (alist-equal? '((endpoints ((1.0 2.0) (3.0 4.0)))
+                              (radius 1.0))
+                            (shape-properties segment)))
+  
+ (shape-properties-set! segment '( (radius 414)
+                                  (endpoints ((12 23) (45 67)))
+                                  (friction 0.5)
+                                  (elasticity 2)
+                                  (collitions-type 0)))
+
+ (test-assert "segment shape"
+              ;; for now, we ignore certain properties here
+              ;; like group and collision
+              (alist-equal? '((type segment)
+                              (elasticity 2.0)
+                              (friction 0.5)
+                              (endpoints ((12.0 23.0) (45.0 67.0)))
+                              (radius 414.0))
+                            (shape-properties segment))))
