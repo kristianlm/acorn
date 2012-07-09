@@ -20,6 +20,7 @@
 (bind-include-path "./include/constraints/")
 (bind-file "./include/chipmunk.h")
 
+;; TODO: redefine make-vect to allocate scheme-object, not malloc
 (define v make-vect)
 (define vzero (make-vect 0 0))
 

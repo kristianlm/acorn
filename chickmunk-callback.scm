@@ -73,7 +73,7 @@
   void
   (call-and-catch body object))
 
-;; using same
+;; using same callback signature
 (define body-for-each-shape (make-safe-callbacks-space "cpBodyEachShape" "cb_body_each"))
 (define body-for-each-constraint (make-safe-callbacks-space "cpBodyEachConstraint" "cb_body_each"))
 (define body-for-each-arbiter (make-safe-callbacks-space "cpBodyEachArbiter" "cb_body_each"))
