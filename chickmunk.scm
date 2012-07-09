@@ -153,7 +153,7 @@
      angle
      ang-vel
      torque
-     force
+     (force vect->list list->vect)
      vel-limit
      ang-vel-limit
      user-data))
