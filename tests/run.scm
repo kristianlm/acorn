@@ -1,4 +1,3 @@
-
 (use chickmunk test)
 
 
@@ -59,7 +58,7 @@
   (every (lambda (tuple)
            (let ([expected (cdr tuple)]
                  [actual (or (alist-ref (car tuple) slave)
-                             (error "missing property" (car tuple)))])
+                             (error (conc "missing property " (car tuple) " in " slave)))])
              (unless (equal? expected actual)
                (error (conc "property mismatch on '" (car tuple) ", expected " expected ", got " actual) ))))
          master))
@@ -103,4 +102,4 @@
                               (friction 0.5)
                               (offset (5.0 6.0))
                               (radius 4.0))
-                            (shape-properties circle))))
+                            (shape-properties circle)))
