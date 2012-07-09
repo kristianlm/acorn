@@ -199,6 +199,10 @@ cpShape* cpCircleShapeNew(cpBody *body, cpFloat radius, cpVect offset);
 cpVect cpCircleShapeGetOffset(cpShape *shape);
 cpFloat cpCircleShapeGetRadius(cpShape *shape);
 
+// these are part of the unsafe API
+void cpCircleShapeSetOffset(cpShape *shape, cpVect offset);
+void cpCircleShapeSetRadius(cpShape *shape, cpFloat radius);
+
 /// @}
 /// @defgroup cpSegmentShape cpSegmentShape
 
@@ -226,5 +230,15 @@ void cpSegmentShapeSetNeighbors(cpShape *shape, cpVect prev, cpVect next);
 /* CP_DeclareShapeGetter(cpSegmentShape, cpVect, B); */
 /* CP_DeclareShapeGetter(cpSegmentShape, cpVect, Normal); */
 /* CP_DeclareShapeGetter(cpSegmentShape, cpFloat, Radius); */
+
+cpVect cpSegmentShapeGetA(cpShape* shape);
+cpVect cpSegmentShapeGetB(cpShape* shape);
+cpFloat cpSegmentShapeGetRadius(cpShape* shape);
+cpVect cpSegmentShapeGetNormal(cpShape* shape);
+
+// unsafe API
+void cpSegmentShapeSetRadius(cpShape* shape, cpFloat radius);
+void cpSegmentShapeSetEndpoints(cpShape* shape, cpVect a, cpVect b);
+
 
 /// @}
