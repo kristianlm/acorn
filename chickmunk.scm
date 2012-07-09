@@ -223,7 +223,8 @@
     (define-info-supporters
       segment-shape-properties segment-shape-properties-set!
       segment-shape-get- segment-shape-set-
-      (  endpoints  ))
+      (  endpoints
+         radius  ))
 
     (define (shape-properties shape)
       (append (common-shape-properties shape)
