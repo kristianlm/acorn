@@ -61,9 +61,9 @@
 
 
 
-(define for-each-body (make-safe-callbacks-space "cpSpaceEachBody" "cb_space_each"))
-(define for-each-shape (make-safe-callbacks-space "cpSpaceEachShape" "cb_space_each"))
-(define for-each-constraint (make-safe-callbacks-space "cpSpaceEachConstraint" "cb_space_each"))
+(define space-for-each-body (make-safe-callbacks-space "cpSpaceEachBody" "cb_space_each"))
+(define space-for-each-shape (make-safe-callbacks-space "cpSpaceEachShape" "cb_space_each"))
+(define space-for-each-constraint (make-safe-callbacks-space "cpSpaceEachConstraint" "cb_space_each"))
 
 ;; *********
 ;; for-each callbacks on body (shapes, constraints etc belonging to a body)
@@ -107,7 +107,7 @@
   void
   (call-and-catch shape))
 
-(define for-each-point-query
+(define space-for-each-point-query
   (lambda (space point layers group callback)
     (start-safe-callbacks callback
                           ((foreign-safe-lambda* void (((c-pointer void) subject) ; space / body
@@ -122,7 +122,7 @@
     ))
 
 ;; let's keep argument names for user convenience
-(define (point-query space point layers group)
+(define (space-point-query space point layers group)
   ((make-callback->list-proc for-each-point-query) space point layers group))
 
 ;; **************************
@@ -143,7 +143,7 @@ static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVec
 
 
 
-(define (for-each-segment-query space start-point end-point layers group callback)
+(define (space-for-each-segment-query space start-point end-point layers group callback)
   (start-safe-callbacks callback
                         ((foreign-safe-lambda* void (((c-pointer "cpSpace") space)
                                                 ((c-pointer "cpVect") start_point)
@@ -157,7 +157,7 @@ static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVec
                          space start-point end-point layers group)))
 
 
-(define (segment-query space start-point end-point layers group)
+(define (space-segment-query space start-point end-point layers group)
   ((make-callback->list-proc
     for-each-segment-query (lambda s-t-n s-t-n) ; make list of all callback args
     ) space start-point end-point layers group))
