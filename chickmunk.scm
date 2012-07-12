@@ -154,6 +154,16 @@
      enable-contact-graph
      user-data))
 
+
+;;; remove all objects of space
+(define (space-remove-all space)
+  (for-each (lambda (body)
+              (for-each (cut space-remove-shape space <>) (body-shapes body))
+              (for-each (cut space-remove-constraint space <>) (body-constraints body)))
+            (cons (space-get-static-body space)
+                  (space-bodies space))))
+
+
 (define-info-supporters
   body-properties body-properties-set!
   body-get- body-set-
