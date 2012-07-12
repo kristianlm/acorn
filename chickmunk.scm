@@ -125,6 +125,20 @@
 (define (list->vect pos-tuple)
   (v (car pos-tuple) (cadr pos-tuple)))
 
+;; helper to create bb (easier to use than bbnew) 
+;; (list->bb '((5 2) (0 1)))
+(define (list->bb lst)
+  ;; flatten
+  (define l (case (length lst)
+              ([4] lst)
+              ([2] (list (caar lst) (cadar lst)
+                         (caadr lst) (cadadr lst)))
+              (else (error "list must be ((x1 y1) (x2 y2)) or (x1 y1 x2 y2)"))))
+  (bbnew (min (first l) (third l))      ; left
+         (min (second l) (fourth l))    ; bottom
+         (max (first l) (third l))      ; right
+         (max (second l) (fourth l))    ; top
+         ))
 
 (define-info-supporters
   space-properties space-properties-set!

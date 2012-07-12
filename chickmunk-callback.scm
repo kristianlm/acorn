@@ -161,3 +161,25 @@ static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVec
   ((make-callback->list-proc
     space-for-each-segment-query (lambda s-t-n s-t-n) ; make list of all callback args
     ) space start-point end-point layers group))
+
+
+;; ********* BB queries
+
+(define-external (cb_space_bb_query ((c-pointer "cpShape") shape) ((c-pointer void) data))
+  void
+  (call-and-catch shape))
+
+(define (space-for-each-bb-query space bb layers group callback)
+  (start-safe-callbacks callback
+                        ((foreign-safe-lambda* void (((c-pointer "cpSpace") space)
+                                                ((c-pointer "cpBB") bb)
+                                                (unsigned-int layers)
+                                                (unsigned-int group))
+                                          "cpSpaceBBQuery("
+                                          "space, *bb, layers, group,"
+                                          "(cpSpaceBBQueryFunc)cb_space_bb_query,"
+                                          "(void*)0);")
+                         space bb layers group)))
+
+(define (space-bb-query space bb layers group)
+  ((make-callback->list-proc space-for-each-bb-query) space bb layers group))
