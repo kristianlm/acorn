@@ -90,9 +90,9 @@
                                 (set! tmp-list (cons (apply conv-proc args) tmp-list))))))
        tmp-list)))
 
-(define space-bodies      (make-callback->list-proc for-each-body))
-(define space-shapes      (make-callback->list-proc for-each-shape))
-(define space-constraints (make-callback->list-proc for-each-constraint))
+(define space-bodies      (make-callback->list-proc space-for-each-body))
+(define space-shapes      (make-callback->list-proc space-for-each-shape))
+(define space-constraints (make-callback->list-proc space-for-each-constraint))
 
 (declare (hide get-body-subject-callback))
 (define (get-body-subject-callback body subject)
@@ -123,7 +123,7 @@
 
 ;; let's keep argument names for user convenience
 (define (space-point-query space point layers group)
-  ((make-callback->list-proc for-each-point-query) space point layers group))
+  ((make-callback->list-proc space-for-each-point-query) space point layers group))
 
 ;; **************************
 ;; Callbacks for segment query
@@ -159,5 +159,5 @@ static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVec
 
 (define (space-segment-query space start-point end-point layers group)
   ((make-callback->list-proc
-    for-each-segment-query (lambda s-t-n s-t-n) ; make list of all callback args
+    space-for-each-segment-query (lambda s-t-n s-t-n) ; make list of all callback args
     ) space start-point end-point layers group))
