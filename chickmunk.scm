@@ -203,6 +203,27 @@
                              (list->vect (car new-value))
                              (list->vect (cadr new-value))))))
 
+
+;; layer helpers
+;; (layers->mask 1 2 3 20 21)
+(define (layers->mask . layers)
+  (fold (lambda (laynum sum)
+          (assert (fx<= laynum fixnum-precision)
+                  (conc fixnum-precision "-bit integers cannot hold layer of size " laynum))
+          (bitwise-ior sum (fxshl 1 (sub1 laynum))))
+        0 layers))
+
+;; (mask->layers 1572871)
+(define (mask->layers mask)
+  (let loop ([n 1]
+             [mask mask]
+             [res '()])
+    (if (zero? mask)
+        (reverse res)
+        (if (fx= 1 (bitwise-and mask 1))
+            (loop (add1 n) (fxshr mask 1) (cons n res))
+            (loop (add1 n) (fxshr mask 1) res)))))
+
 (define-values [shape-properties shape-properties-set!]
   ;; define hidden getter and setter procedures for each
   ;; shape type. then shape-properties and shape-properties-set!
@@ -219,7 +240,11 @@
          user-data
          collision-type
          group
-         (layers (lambda (l) (sprintf "~B" l)))))
+         (layers (lambda (l) (sprintf "~B" l))
+                 (lambda (l) (cond
+                         ((string? l) (string->number (conc "#b" l)))
+                         ((list? l) (layers->mask l))
+                         (else l))))))
 
     (define-info-supporters
       circle-shape-properties circle-shape-properties-set!
