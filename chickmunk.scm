@@ -174,9 +174,21 @@
         (cut poly-shape-get-vert shape <>))
        (iota (poly-shape-get-num-verts shape))) )
 
-;; TODO
-(define (poly-shape-set-vertices shape)
- #f)
+(define (poly-shape-set-vertices shape verts)
+  ;; ((1 2) (2 3)) ==> (1 2 2 3)
+  (define (flatten verts)
+    (reverse
+     (fold (lambda (e s)
+             (cons (second e)
+                   (cons (first e) s)))
+           '() verts)))
+
+  ((foreign-lambda* void (((c-pointer "cpShape") poly)
+                     (int num_verts)
+                     (f32vector verts))
+               "cpPolyShapeSetVerts(poly, num_verts, (cpVect*)verts, cpvzero);")
+   shape (length verts) (list->f32vector (flatten verts))))
+
 
 (define (segment-shape-get-endpoints shape)
   (assert (eq? (shape-get-type shape) 'segment) "shape is not of type segment")
@@ -218,7 +230,7 @@
     (define-info-supporters
       poly-shape-properties poly-shape-properties-set!
       poly-shape-get- poly-shape-set-
-      (  (vertices #f #f #f "no setter for segment vertices yet")  ))
+      (  vertices  ))
 
     (define-info-supporters
       segment-shape-properties segment-shape-properties-set!

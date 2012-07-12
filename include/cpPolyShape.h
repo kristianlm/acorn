@@ -63,4 +63,9 @@ int cpPolyShapeGetNumVerts(cpShape *shape);
 /// Get the @c ith vertex of a polygon shape.
 cpVect cpPolyShapeGetVert(cpShape *shape, int idx);
 
+// unsafe:
+//defined with foreign-lambda, converting cpVect->f32vect
+//void cpPolyShapeSetVerts(cpShape *shape, int numVerts, cpVect
+//*verts, cpVect offset);
+
 /// @}
