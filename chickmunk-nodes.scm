@@ -54,8 +54,10 @@
                    (space-get-static-body space)
                    (space-add-body space (body-new 1 1))))
 
-  (list (if static? '()
-            (body-properties-set! body body-props))
+  (if static? '()
+      (body-properties-set! body body-props))
+
+  (list body
         (map (lambda (shape-spec)
                (define shape-props (cleanup-shape-props shape-spec))
                (define new-shape-proc
@@ -80,9 +82,11 @@
 ;; add one or more bodies to space
 (define (space-add space graph)
   (if (eq? 'body (car graph))
-      (space-add/body space graph)      ; adding single body
+      ;; add single body. return-type always list of bodies added
+      (list (space-add/body space graph))
+      ;; adding muliple bodies
       (map (cut space-add/body space <>)
-           (strip-header 'bodies graph)))) ; adding muliple bodies
+           (strip-header 'bodies graph))))
 
 
 
