@@ -183,6 +183,7 @@
      user-data))
 
 (include "chickmunk-shape-properties.scm")
+(include "chickmunk-nodes.scm")
 (include "chickmunk-callback.scm")
 
 )
