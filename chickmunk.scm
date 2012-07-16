@@ -88,6 +88,7 @@
                  '((else #f))))))
         info))))
 
+;; TODO: add optional compression (removing properties that = defaults)
 ;; generate a lambda which accepts a subject (pointer) and returns all its
 ;; properties as an alist
 (define-syntax (make-info-getter x r t)
