@@ -48,7 +48,7 @@
 
   (define body-props (car body-spec))
   (define shapes-spec (cdr body-spec))
-  (define static? (not (= 0 (car (alist-ref 'static body-props eq? 0)))))
+  (define static? (not (= 0 (car (or (alist-ref 'static body-props eq? '(0)))))))
   
   (define body (if static?
                    (space-get-static-body space)
