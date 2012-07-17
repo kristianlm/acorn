@@ -9,6 +9,9 @@
 <#
 
 ;(bind-file "chipmunk.h")
+(bind-options default-renaming: "")
+;;chickmunk-draw#chipmunk-debug-draw-segment
+(bind-rename/pattern "^chipmunk-debug-" "")
 (bind-file "ChipmunkDebugDraw.h")
 
 )
