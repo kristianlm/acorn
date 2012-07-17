@@ -1,10 +1,8 @@
 
 
 (module chickmunk *
-  (import chicken scheme foreign bind lolevel
-          srfi-1 srfi-4
-          data-structures)
-  
+(import chicken scheme foreign bind)
+(use srfi-4 srfi-1 data-structures lolevel)
 
 #>
 #include <chipmunk/chipmunk.h>
