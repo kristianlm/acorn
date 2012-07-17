@@ -185,6 +185,8 @@
 (include "chickmunk-nodes.scm")
 (include "chickmunk-callback.scm")
 
+;; TODO: set-finalizer on space object to free it automatically
+
 ;; currently we only support 32-bit floats
 ;; make sure the chipmunk native library is
 ;; configured to use it.
