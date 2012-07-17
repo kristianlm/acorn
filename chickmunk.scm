@@ -187,4 +187,14 @@
 (include "chickmunk-nodes.scm")
 (include "chickmunk-callback.scm")
 
+;; currently we only support 32-bit floats
+;; make sure the chipmunk native library is
+;; configured to use it.
+(assert (fp= 0.5 (moment-for-circle 1 0 1 vzero))
+        "Moment for circle incorrect.
+Make sure your Chipmunk installation
+is configured to use floats and not doubles.
+Configure preprocessor with -DCP_USE_DOUBLES=0")
+
+
 )
