@@ -73,7 +73,7 @@ index ea9d0fd..6915b44 100644
     ((> i 1000))
   (space-step space (/ 1 120)))
 
-;; dump entire scehen-graph to screen as a tree
+;; dump entire scene-graph to screen as a tree
 ;; the circle should be on top of the segment (0,-0.9)
 (pp (space->nodes space))
 (space-free space)
