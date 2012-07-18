@@ -15,6 +15,7 @@ Take a look at the examples for a quick introduction.
 
 ## Requirements
 
+* [Chicken Scheme]
 * [chicken-bind], version 1.0
 * [Chipmunk 6][Chipmunk], configured with CP_USE_DOUBLES=0. I'm using version 6.0.3.
 
@@ -28,6 +29,14 @@ index ea9d0fd..6915b44 100644
 @@ -37 +37 @@ endif()
 -set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99") # always use gnu99
 +set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -lm -DCP_USE_DOUBLES=0") # always use gnu99
+```
+## Installing
+
+```bash
+$ aptitude install chicken # or your distro equivalent
+$ git clone https://github.com/kristianlm/chickmunk
+$ cd chickmunk
+$ chicken-install # or try with sudo
 ```
 
 ## Examples
