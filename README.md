@@ -30,7 +30,27 @@ index ea9d0fd..6915b44 100644
 +set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -lm -DCP_USE_DOUBLES=0") # always use gnu99
 ```
 
-## Example
+## Examples
+
+```scheme
+(use chickmunk)
+(pp (body-properties (body-new 1 1)))
+  ===>
+  ((sleeping 0)
+   (static 0)
+   (rogue 1)
+   (pos (0.0 0.0))
+   (vel (0.0 0.0))
+   (mass 1.0)
+   (moment 1.0)
+   (angle 0.0)
+   (ang-vel 0.0)
+   (torque 0.0)
+   (force (0.0 0.0))
+   (vel-limit +inf)
+   (ang-vel-limit +inf)
+   (user-data #f))
+```
 
 ```scheme
 (use chickmunk)
