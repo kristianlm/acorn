@@ -33,7 +33,6 @@ index ea9d0fd..6915b44 100644
 ## Installing
 
 ```bash
-$ aptitude install chicken # or your distro equivalent
 $ git clone https://github.com/kristianlm/chickmunk
 $ cd chickmunk
 $ chicken-install # or try with sudo
