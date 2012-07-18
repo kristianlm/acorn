@@ -15,10 +15,20 @@ Take a look at the examples for a quick introduction.
 
 ## Requirements
 
-[Chipmunk] loves passing the `cpVect struct` by value, which the official 
-[chicken-bind] does not support. 
-My [patched version](https://github.com/kristianlm/chicken-bind)
-supports this but the test coverage is questionable. You'll need my version in order to generate the wrappers for [Chipmunk].
+* [chicken-bind], version 1.0
+* [Chipmunk 6][Chipmunk], configured with CP_USE_DOUBLES=0. I'm using version 6.0.3.
+
+I couldn't figure out how to add `CP_USE_DOUBLES=0` to the preprocessor from the command line, so I did this:
+
+```diff
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ea9d0fd..6915b44 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -37 +37 @@ endif()
+-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99") # always use gnu99
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -lm -DCP_USE_DOUBLES=0") # always use gnu99
+```
 
 ## Example
 
@@ -53,12 +63,4 @@ supports this but the test coverage is questionable. You'll need my version in o
 
 ### Error: illegal foreign argument type `(struct cpBB)'
 
-Try installing the alternative chicken-bind version from my (kristianlm) github repo.
-
-### Runtime error: strange calculations and/or segfault
-Your chipmunk binaries may be configured to use doubles, while the Chicken version uses floats. Try this:
-```scheme
-(cp:moment-for-circle 1 0 1 cp:vzero) ;; should return 0.5
-```
-If the above calculation returns something not 0.5, this may be the problem. You can add `-DCP_USE_DOUBLES=0` 
-to `CMakeLists.txt` in the chipmunk-directory and rerun `cmake .` and `sudo make install`.
+Make sure you have the latest [chicken-bind] version 1.0. Upgrade with `chicken-install bind`.
