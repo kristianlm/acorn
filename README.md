@@ -22,7 +22,32 @@ supports this but the test coverage is questionable. You'll need my version in o
 
 ## Example
 
-See [sample.scm](/kristianlm/chickmunk/blob/master/sample.scm).
+```scheme
+(use chickmunk)
+
+(define space
+  (nodes->space
+    `(space ()
+            (body ()
+                  (circle (radius 0.1)))
+            (body ((static 1))
+                  (segment (endpoints ((-1 -1)
+                                       ( 1 -1))))))))
+
+;; give our world a little gravity
+(space-set-gravity space (v 0 -1))
+
+;; run our simulation for a while,
+;; letting our ball fall onto the segment
+(do ((i 0 (add1 i)))
+    ((> i 1000))
+  (space-step space (/ 1 120)))
+
+;; dump entire scehen-graph to screen as a tree
+;; the circle should be on top of the segment (0,-0.9)
+(pp (space->nodes space))
+(space-free space)
+```
 
 ## Troubleshooting
 
