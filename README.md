@@ -6,12 +6,17 @@
 
 Give your chicken some physics! This API currently follows the 
 [original C-API](http://chipmunk-physics.net/documentation.php) closely, 
-which thus is probably your best source for information. It is in Alpha stage because:
+which thus is probably your best source for information.
 
-* It's just a wrapper around C functions (Scheme should allow for a much easier API)
-* Its [chicken-bind] dependency needs some love and care
+Chickmunk should provide bindings to all C functions and thus 
+all parts of Chipmunk (bodies, shapes, constraints)
+should be accessible.
+ 
+It also adds:
+* properties: shape-properties, shape-properties-set!, body-properties etc
+* nodes: space->nodes and nodes->space
 
-Take a look at the examples for a quick introduction.
+Have a look at the examples for a quick introduction.
 
 ## Requirements
 
@@ -86,6 +91,11 @@ $ chicken-install # or try with sudo
 (pp (space->nodes space))
 (space-free space)
 ```
+
+## Todo's
+
+* Add support for automatically calculate a body's mass and interia based on density and its shapes' area.
+* Store constraints in (space->nodes ...)
 
 ## Troubleshooting
 
