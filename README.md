@@ -43,6 +43,24 @@ $ cd chickmunk
 $ chicken-install # or try with sudo
 ```
 
+## Nodes
+
+Nodes provide a convenient way to add shapes and bodies to a space. These two are equivalent:
+
+```scheme
+(space-add space
+           `((body ((mass 10))
+                   (circle (radius 0.2)))))
+```
+
+```scheme
+(let ()
+  (define body (body-new 10 1))
+  (define shape (circle-shape-new body 0.2 (v 0 0)))
+  (space-add-body space body)
+  (space-add-shape space shape))
+```
+
 ## Examples
 
 ```scheme
