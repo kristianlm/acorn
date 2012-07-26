@@ -1,0 +1,6 @@
+
+(compile -s glut-sandbox.scm -J)
+(compile -s glut-sandbox.import.scm)
+
+(install-extension 'glut-sandbox
+                   '("glut-sandbox.so" "glut-sandbox.import.so"))
