@@ -2,6 +2,9 @@
 ;;;
 ;;; Starts a glut main-loop in a different thread
 ;;; so the REPL is still available
+;;;
+;;; Before running this you should install glut-sandbox:
+;;; cd glut-sandbox ; chicken-install
 
 (use chickmunk
      chickmunk-draw gl glut glu
