@@ -3,4 +3,5 @@
  (synopsis "Chicken bindings for the Chipmunk Physics Engine")
  (license "BSD")
  (needs bind)
+ (test-depends test)
  (files "chickmunk.scm" "chickmunk.setup"))
