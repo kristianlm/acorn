@@ -79,29 +79,30 @@
            (space-add-shape space shape))
          shapes-spec))
 
+  (if (not static?)
+      (body-calibrate body default-density))
   (list body shapes))
 
 ;; add one or more bodies to space
-(define (space-add space graph)
+(define (space-add space graph #!optional (default-density #f))
   (if (eq? 'body (car graph))
       ;; add single body. return-type always list of bodies added
-      (list (space-add/body space graph))
+      (list (space-add/body space graph default-density))
       ;; adding muliple bodies
-      (map (cut space-add/body space <>)
+      (map (cut space-add/body space <> default-density)
            (strip-header 'bodies graph))))
 
 
 
 
 ;;; Creating a new space from nodes
-(define (nodes->space nodes)
+(define (nodes->space nodes #!optional (default-density #f))
   (define space-props (car (strip-header 'space nodes)))
   (define spec (cdr (strip-header 'space nodes)))
 
   (define space (space-new))
   (space-properties-set! space space-props)
-  (space-add space spec)
-  
+  (space-add space spec default-density)
   space)
 
 ;;; Creating nodes from a space
