@@ -17,8 +17,6 @@
 ;;(define v make-vect)
 (define v (lambda (x y) (f32vector x y))  )
 
-(define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
-(define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
 
 ;; neat little bugger:
 ;; expand any macros within lst once

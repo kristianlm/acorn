@@ -108,18 +108,17 @@
   (call-and-catch shape))
 
 (define space-for-each-point-query
-  (lambda (space point layers group callback)
+  (lambda (space cpVect layers group callback)
     (start-safe-callbacks callback
                           ((foreign-safe-lambda* void (((c-pointer void) subject) ; space / body
-                                                       ((c-pointer "cpVect") point)
+                                                       (f32vector point)
                                                        (unsigned-int layers)
                                                        (unsigned-int group)
                                                        ((c-pointer void) foreign_callback))
                                                  "cpSpacePointQuery"
-                                                 "(subject, *point, layers, group"
+                                                 "(subject, *(cpVect*)point, layers, group"
                                                  "   ,foreign_callback, (void*)0);")
-                           space point layers group (foreign-value "cb_space_point_query" c-pointer)))
-    ))
+                           space cpVect layers group (foreign-value "cb_space_point_query" c-pointer)))))
 
 ;; let's keep argument names for user convenience
 (define (space-point-query space point layers group)

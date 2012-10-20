@@ -65,3 +65,17 @@
 (bind-file "./include/chipmunk.h")
 
 
+(define area-for-poly
+  (foreign-lambda* float ((int numVerts)
+                     (f32vector verts))
+              "return(cpAreaForPoly(numVerts, (cpVect*)verts));"))
+
+(define centroid-for-poly
+  (foreign-safe-lambda* scheme-object ((int numVerts)
+                          (f32vector verts))
+                   "
+cpVect pos = cpCentroidForPoly(numVerts, (cpVect*)verts);
+return(make_f32vector2d(pos.x, pos.y));"))
+
+(define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
+(define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
