@@ -10,7 +10,11 @@
 *** TODO Signal error if property doesn't exist
 *** TODO Store constraints in (space->nodes ...)
 ** TODO Automatically free space (set-finalizer!)
+** TODO Use stronger types, i.e. say if pointer is shape or body
+** TODO Allow scheme-object as user-data
+** TODO Feature for identifying/naming objects
+** TODO Feature for collision callbacks (as lambdas, of course!)
 ** DONE Handle vertices non-clockwise (convex hull)
-** TODO Remove struct definitions in header files (use body-get-...) instead
+** DONE Remove struct definitions in header files (use body-get-...) instead
 ** TODO Nested calls of space-bodies, space-shapes etc & make them thread-safe
 
