@@ -114,8 +114,7 @@ Nodes provide a convenient way to add shapes and bodies to a space. These two ar
 
 ## Todo's
 
-* Add support for automatically calculate a body's mass and interia based on density and its shapes' area.
-* Store constraints in (space->nodes ...)
+See todo.org
 
 ## Troubleshooting
 

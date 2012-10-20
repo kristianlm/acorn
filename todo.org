@@ -1,0 +1,16 @@
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+
+* Chickmunk
+** DONE Automatic calculation of mass, intertia & cog
+** cpVect2 interface
+*** DONE Make a plugin system for chicken-bind
+*** DONE Make a plugin for bind that converts cpVect->f32vector (rtype and argtype)
+** TODO Make nice API for joints
+** Node interface
+*** TODO Signal error if property doesn't exist
+*** TODO Store constraints in (space->nodes ...)
+** TODO Automatically free space (set-finalizer!)
+** DONE Handle vertices non-clockwise (convex hull)
+** TODO Remove struct definitions in header files (use body-get-...) instead
+** TODO Nested calls of space-bodies, space-shapes etc & make them thread-safe
+
