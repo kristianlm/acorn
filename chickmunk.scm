@@ -17,6 +17,30 @@
 ;;(define v make-vect)
 (define v (lambda (x y) (f32vector x y))  )
 
+;; allow list of points, list of f32vectors and f32vectors directly to
+;; be converted to verticies as used by chipmunk.
+;; (verts 1 -1 2 -2 )
+;; (verts 1 -1 2 -2 5)
+;; (verts '(1 -1) '(2 -2) '(3 -3))
+;; (verts '((1 -1) (2 -2) (3 -3) (4 -4)))
+(define (verts . verts)
+  (if (null? verts) (f32vector)
+      (begin
+        (if (list? (car verts))
+            ;; verts is list of '(x y)s
+            (begin
+              (apply f32vector
+                     (flatten
+                      (map (lambda (pos) (list (car pos) (cadr pos)))
+                           (if (list? (caar verts)) (car verts)
+                               verts)))))
+            ;; verts is flat
+            (begin
+              ;; even number of vertex coords
+              (assert (= 0 (remainder (length verts) 2)))
+              (apply f32vector verts))))))
+
+(define vzero (v 0 0))
 
 ;; neat little bugger:
 ;; expand any macros within lst once
