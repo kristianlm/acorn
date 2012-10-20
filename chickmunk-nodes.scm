@@ -25,7 +25,7 @@
 ;; props      == <alist>        '((sleeping 0) (pos (10 -10)) ...)
 ;; shape1/2.. == <alist>        '((type segment) ... )
 (declare (hide space-add/body))
-(define (space-add/body space body-spec)
+(define (space-add/body space body-spec #!optional (default-density #f))
   ;; remove body header if it's there
   ;; we only want alist
   ;; (cleanup-body-spec '(body ((mass 10)) (shapes (circle (radius 1)))))
@@ -57,27 +57,29 @@
   (if static? '()
       (body-properties-set! body body-props))
 
-  (list body
-        (map (lambda (shape-spec)
-               (define shape-props (cleanup-shape-props shape-spec))
-               (define new-shape-proc
-                 (let ([shape-type (car (alist-ref 'type shape-props))])
-                   (case shape-type
-                     ([circle] (lambda () (circle-shape-new body 1 ; default radius 1
-                                                       (v 0 0) ; default offset 0,0
-                                                       )))
-                     ([poly box] (lambda () (box-shape-new body 1 ; default width
-                                                      1 ; default height
-                                                      )))
-                     ([segment] (lambda () (segment-shape-new body (v 0 0) ; default A
-                                                         (v 0 1) ; default B
-                                                         0))) ; default radius
-                     (else (error "cannot create shape of type " shape-type)))))
+  (define shapes
+    (map (lambda (shape-spec)
+           (define shape-props (cleanup-shape-props shape-spec))
+           (define new-shape-proc
+             (let ([shape-type (car (alist-ref 'type shape-props))])
+               (case shape-type
+                 ([circle] (lambda () (circle-shape-new body 1 ; default radius 1
+                                                   (v 0 0) ; default offset 0,0
+                                                   )))
+                 ([poly box] (lambda () (box-shape-new body 1 ; default width
+                                                  1 ; default height
+                                                  )))
+                 ([segment] (lambda () (segment-shape-new body (v 0 0) ; default A
+                                                     (v 0 1) ; default B
+                                                     0))) ; default radius
+                 (else (error "cannot create shape of type " shape-type)))))
           
-               (define shape (new-shape-proc))
-               (shape-properties-set! shape (alist-delete 'type shape-props))
-               (space-add-shape space shape))
-             shapes-spec)))
+           (define shape (new-shape-proc))
+           (shape-properties-set! shape (alist-delete 'type shape-props))
+           (space-add-shape space shape))
+         shapes-spec))
+
+  (list body shapes))
 
 ;; add one or more bodies to space
 (define (space-add space graph)
