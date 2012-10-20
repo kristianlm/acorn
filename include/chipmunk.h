@@ -148,6 +148,9 @@ cpFloat cpMomentForBox(cpFloat m, cpFloat width, cpFloat height);
 /// Calculate the moment of inertia for a solid box.
 cpFloat cpMomentForBox2(cpFloat m, cpBB box);
 
+// as of version 6.0.3, we can make convex hulls.
+// this is rewritten in chickmunk.scm
+int cpConvexHull(int count, cpVect *verts, cpVect *result, int *first, cpFloat tol);
 /* //@} */
 
 #endif

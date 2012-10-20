@@ -206,6 +206,9 @@
      ang-vel-limit
      user-data))
 
+
+
+(include "chickmunk-util.scm")
 (include "chickmunk-shape-properties.scm")
 (include "chickmunk-nodes.scm")
 (include "chickmunk-callback.scm")
