@@ -14,8 +14,8 @@
 (include "chickmunk-bind.scm")
 
 ;; TODO: redefine make-vect to allocate scheme-object, not malloc
-(define v make-vect)
-(define vzero (make-vect 0 0))
+;;(define v make-vect)
+(define v (lambda (x y) (f32vector x y))  )
 
 (define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
 (define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
@@ -113,6 +113,14 @@
        (define ,set-info-name (make-info-setter ,setter-prefix ,spec)))))
 
 ;; convenience functions for cpVect struct -> list
+(define v.x vect-x)
+(define v.y vect-y)
+
+;; TODO: find out which one is faster
+;; (vect-x ...) casts f32vector to cpVect
+;; (define (vect->list vect)
+;;   (list (f32vector-ref vect 0)
+;;         (f32vector-ref vect 1)))
 (define (vect->list vect)
   (list (vect-x vect) (vect-y vect)))
 
