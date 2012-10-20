@@ -25,15 +25,17 @@
 const cpConstraintClass *cpRotaryLimitJointGetClass(void);
 
 /// @private
-typedef struct cpRotaryLimitJoint {
-	cpConstraint constraint;
-	cpFloat min, max;
+/* typedef struct cpRotaryLimitJoint { */
+/* 	cpConstraint constraint; */
+/* 	cpFloat min, max; */
 	
-	cpFloat iSum;
+/* 	cpFloat iSum; */
 		
-	cpFloat bias;
-	cpFloat jAcc, jMax;
-} cpRotaryLimitJoint;
+/* 	cpFloat bias; */
+/* 	cpFloat jAcc, jMax; */
+/* } cpRotaryLimitJoint */;
+
+typedef struct cpRotaryLimitJoint cpRotaryLimitJoint;
 
 /// Allocate a damped rotary limit joint.
 cpRotaryLimitJoint* cpRotaryLimitJointAlloc(void);

@@ -25,15 +25,16 @@
 const cpConstraintClass *cpRatchetJointGetClass(void);
 
 /// @private
-typedef struct cpRatchetJoint {
-	cpConstraint constraint;
-	cpFloat angle, phase, ratchet;
+typedef struct cpRatchetJoint cpRatchetJoint
+/* { */
+/* 	cpConstraint constraint; */
+/* 	cpFloat angle, phase, ratchet; */
 	
-	cpFloat iSum;
+/* 	cpFloat iSum; */
 		
-	cpFloat bias;
-	cpFloat jAcc, jMax;
-} cpRatchetJoint;
+/* 	cpFloat bias; */
+/* 	cpFloat jAcc, jMax; */
+/* } cpRatchetJoint */;
 
 /// Allocate a ratchet joint.
 cpRatchetJoint* cpRatchetJointAlloc(void);

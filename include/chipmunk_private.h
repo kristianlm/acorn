@@ -27,10 +27,10 @@
 
 //MARK: cpArray
 
-struct cpArray {
-	int num, max;
-	void **arr;
-};
+/* struct cpArray { */
+/* 	int num, max; */
+/* 	void **arr; */
+/* } */;
 
 cpArray *cpArrayNew(int size);
 
@@ -195,18 +195,18 @@ void cpSpaceCollideShapes(cpShape *a, cpShape *b, cpSpace *space);
 
 //MARK: Arbiters
 
-struct cpContact {
-	cpVect p, n;
-	cpFloat dist;
+/* struct cpContact { */
+/* 	cpVect p, n; */
+/* 	cpFloat dist; */
 	
-	cpVect r1, r2;
-	cpFloat nMass, tMass, bounce;
+/* 	cpVect r1, r2; */
+/* 	cpFloat nMass, tMass, bounce; */
 
-	cpFloat jnAcc, jtAcc, jBias;
-	cpFloat bias;
+/* 	cpFloat jnAcc, jtAcc, jBias; */
+/* 	cpFloat bias; */
 	
-	cpHashValue hash;
-};
+/* 	cpHashValue hash; */
+/* } */;
 
 cpContact* cpContactInit(cpContact *con, cpVect p, cpVect n, cpFloat dist, cpHashValue hash);
 cpArbiter* cpArbiterInit(cpArbiter *arb, cpShape *a, cpShape *b);

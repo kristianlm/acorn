@@ -25,16 +25,17 @@
 const cpConstraintClass *cpGearJointGetClass(void);
 
 /// @private
-typedef struct cpGearJoint {
-	cpConstraint constraint;
-	cpFloat phase, ratio;
-	cpFloat ratio_inv;
+typedef struct cpGearJoint cpGerJoint
+/* { */
+/* 	cpConstraint constraint; */
+/* 	cpFloat phase, ratio; */
+/* 	cpFloat ratio_inv; */
 	
-	cpFloat iSum;
+/* 	cpFloat iSum; */
 		
-	cpFloat bias;
-	cpFloat jAcc, jMax;
-} cpGearJoint;
+/* 	cpFloat bias; */
+/* 	cpFloat jAcc, jMax; */
+/* } cpGearJoint */;
 
 /// Allocate a gear joint.
 cpGearJoint* cpGearJointAlloc(void);

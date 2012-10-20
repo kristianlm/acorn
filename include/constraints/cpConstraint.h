@@ -30,12 +30,12 @@ typedef void (*cpConstraintApplyImpulseImpl)(cpConstraint *constraint);
 typedef cpFloat (*cpConstraintGetImpulseImpl)(cpConstraint *constraint);
 
 /// @private
-struct cpConstraintClass {
-	cpConstraintPreStepImpl preStep;
-	cpConstraintApplyCachedImpulseImpl applyCachedImpulse;
-	cpConstraintApplyImpulseImpl applyImpulse;
-	cpConstraintGetImpulseImpl getImpulse;
-};
+/* struct cpConstraintClass { */
+/* 	cpConstraintPreStepImpl preStep; */
+/* 	cpConstraintApplyCachedImpulseImpl applyCachedImpulse; */
+/* 	cpConstraintApplyImpulseImpl applyImpulse; */
+/* 	cpConstraintGetImpulseImpl getImpulse; */
+/* } */;
 
 /// Callback function type that gets called before solving a joint.
 typedef void (*cpConstraintPreSolveFunc)(cpConstraint *constraint, cpSpace *space);
@@ -44,43 +44,44 @@ typedef void (*cpConstraintPostSolveFunc)(cpConstraint *constraint, cpSpace *spa
 
 
 /// Opaque cpConstraint struct.
-typedef struct cpConstraint {
-  //const cpConstraintClass *klass;
+typedef struct cpConstraint cpContraint;
+/* { */
+/*   //const cpConstraintClass *klass; */
 	
-	/// The first body connected to this constraint.
-	cpBody *a;
-	/// The second body connected to this constraint.
-	cpBody *b;
+/* 	/// The first body connected to this constraint. */
+/* 	cpBody *a; */
+/* 	/// The second body connected to this constraint. */
+/* 	cpBody *b; */
 	
-  //	cpSpace *space;
+/*   //	cpSpace *space; */
 	
-  //	cpConstraint *next_a;
-  //	cpConstraint *next_b;
+/*   //	cpConstraint *next_a; */
+/*   //	cpConstraint *next_b; */
 	
-	/// The maximum force that this constraint is allowed to use.
-	/// Defaults to infinity.
-	cpFloat maxForce;
-	/// The rate at which joint error is corrected.
-	/// Defaults to pow(1.0 - 0.1, 60.0) meaning that it will
-	/// correct 10% of the error every 1/60th of a second.
-	cpFloat errorBias;
-	/// The maximum rate at which joint error is corrected.
-	/// Defaults to infinity.
-	cpFloat maxBias;
+/* 	/// The maximum force that this constraint is allowed to use. */
+/* 	/// Defaults to infinity. */
+/* 	cpFloat maxForce; */
+/* 	/// The rate at which joint error is corrected. */
+/* 	/// Defaults to pow(1.0 - 0.1, 60.0) meaning that it will */
+/* 	/// correct 10% of the error every 1/60th of a second. */
+/* 	cpFloat errorBias; */
+/* 	/// The maximum rate at which joint error is corrected. */
+/* 	/// Defaults to infinity. */
+/* 	cpFloat maxBias; */
 	
-	/// Function called before the solver runs.
-	/// Animate your joint anchors, update your motor torque, etc.
-	cpConstraintPreSolveFunc preSolve;
+/* 	/// Function called before the solver runs. */
+/* 	/// Animate your joint anchors, update your motor torque, etc. */
+/* 	cpConstraintPreSolveFunc preSolve; */
 	
-	/// Function called after the solver runs.
-	/// Use the applied impulse to perform effects like breakable joints.
-	cpConstraintPostSolveFunc postSolve;
+/* 	/// Function called after the solver runs. */
+/* 	/// Use the applied impulse to perform effects like breakable joints. */
+/* 	cpConstraintPostSolveFunc postSolve; */
 	
-	/// User definable data pointer.
-	/// Generally this points to your the game object class so you can access it
-	/// when given a cpConstraint reference in a callback.
-	cpDataPointer data;
-} cpContraint;
+/* 	/// User definable data pointer. */
+/* 	/// Generally this points to your the game object class so you can access it */
+/* 	/// when given a cpConstraint reference in a callback. */
+/* 	cpDataPointer data; */
+/* }  cpContraint; */
 
 /// Destroy a constraint.
 void cpConstraintDestroy(cpConstraint *constraint);

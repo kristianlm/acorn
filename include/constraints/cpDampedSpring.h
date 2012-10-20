@@ -29,21 +29,21 @@ typedef cpFloat (*cpDampedSpringForceFunc)(cpConstraint *spring, cpFloat dist);
 const cpConstraintClass *cpDampedSpringGetClass(void);
 
 /// @private
-struct cpDampedSpring {
-	cpConstraint constraint;
-	cpVect anchr1, anchr2;
-	cpFloat restLength;
-	cpFloat stiffness;
-	cpFloat damping;
-	cpDampedSpringForceFunc springForceFunc;
+/* struct cpDampedSpring { */
+/* 	cpConstraint constraint; */
+/* 	cpVect anchr1, anchr2; */
+/* 	cpFloat restLength; */
+/* 	cpFloat stiffness; */
+/* 	cpFloat damping; */
+/* 	cpDampedSpringForceFunc springForceFunc; */
 	
-	cpFloat target_vrn;
-	cpFloat v_coef;
+/* 	cpFloat target_vrn; */
+/* 	cpFloat v_coef; */
 	
-	cpVect r1, r2;
-	cpFloat nMass;
-	cpVect n;
-};
+/* 	cpVect r1, r2; */
+/* 	cpFloat nMass; */
+/* 	cpVect n; */
+/* } */;
 
 /// Allocate a damped spring.
 cpDampedSpring* cpDampedSpringAlloc(void);

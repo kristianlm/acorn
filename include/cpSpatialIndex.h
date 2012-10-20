@@ -55,13 +55,13 @@ typedef struct cpSpatialIndexClass cpSpatialIndexClass;
 typedef struct cpSpatialIndex cpSpatialIndex;
 
 /// @private
-struct cpSpatialIndex {
-	cpSpatialIndexClass *klass;
+/* struct cpSpatialIndex { */
+/* 	cpSpatialIndexClass *klass; */
 	
-	cpSpatialIndexBBFunc bbfunc;
+/* 	cpSpatialIndexBBFunc bbfunc; */
 	
-	cpSpatialIndex *staticIndex, *dynamicIndex;
-};
+/* 	cpSpatialIndex *staticIndex, *dynamicIndex; */
+/* } */;
 
 
 //MARK: Spatial Hash
@@ -131,24 +131,24 @@ typedef void (*cpSpatialIndexPointQueryImpl)(cpSpatialIndex *index, cpVect point
 typedef void (*cpSpatialIndexSegmentQueryImpl)(cpSpatialIndex *index, void *obj, cpVect a, cpVect b, cpFloat t_exit, cpSpatialIndexSegmentQueryFunc func, void *data);
 typedef void (*cpSpatialIndexQueryImpl)(cpSpatialIndex *index, void *obj, cpBB bb, cpSpatialIndexQueryFunc func, void *data);
 
-struct cpSpatialIndexClass {
-	cpSpatialIndexDestroyImpl destroy;
+/* struct cpSpatialIndexClass { */
+/* 	cpSpatialIndexDestroyImpl destroy; */
 	
-	cpSpatialIndexCountImpl count;
-	cpSpatialIndexEachImpl each;
+/* 	cpSpatialIndexCountImpl count; */
+/* 	cpSpatialIndexEachImpl each; */
 	
-	cpSpatialIndexContainsImpl contains;
-	cpSpatialIndexInsertImpl insert;
-	cpSpatialIndexRemoveImpl remove;
+/* 	cpSpatialIndexContainsImpl contains; */
+/* 	cpSpatialIndexInsertImpl insert; */
+/* 	cpSpatialIndexRemoveImpl remove; */
 	
-	cpSpatialIndexReindexImpl reindex;
-	cpSpatialIndexReindexObjectImpl reindexObject;
-	cpSpatialIndexReindexQueryImpl reindexQuery;
+/* 	cpSpatialIndexReindexImpl reindex; */
+/* 	cpSpatialIndexReindexObjectImpl reindexObject; */
+/* 	cpSpatialIndexReindexQueryImpl reindexQuery; */
 	
-	cpSpatialIndexPointQueryImpl pointQuery;
-	cpSpatialIndexSegmentQueryImpl segmentQuery;
-	cpSpatialIndexQueryImpl query;
-};
+/* 	cpSpatialIndexPointQueryImpl pointQuery; */
+/* 	cpSpatialIndexSegmentQueryImpl segmentQuery; */
+/* 	cpSpatialIndexQueryImpl query; */
+/* } */;
 
 /// Destroy and free a spatial index.
 void cpSpatialIndexFree(cpSpatialIndex *index);

@@ -25,18 +25,19 @@
 const cpConstraintClass *cpPinJointGetClass(void);
 
 /// @private
-typedef struct cpPinJoint {
-	cpConstraint constraint;
-	cpVect anchr1, anchr2;
-	cpFloat dist;
+typedef struct cpPinJoint cpPinJoint;
+/* { */
+/* 	cpConstraint constraint; */
+/* 	cpVect anchr1, anchr2; */
+/* 	cpFloat dist; */
 	
-	cpVect r1, r2;
-	cpVect n;
-	cpFloat nMass;
+/* 	cpVect r1, r2; */
+/* 	cpVect n; */
+/* 	cpFloat nMass; */
 	
-	cpFloat jnAcc, jnMax;
-	cpFloat bias;
-} cpPinJoint;
+/* 	cpFloat jnAcc, jnMax; */
+/* 	cpFloat bias; */
+/* } cpPinJoint */;
 
 /// Allocate a pin joint.
 cpPinJoint* cpPinJointAlloc(void);

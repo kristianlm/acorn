@@ -133,11 +133,16 @@ cpFloat cpAreaForSegment(cpVect a, cpVect b, cpFloat r);
 cpFloat cpMomentForPoly(cpFloat m, int numVerts, const cpVect *verts, cpVect offset);
 
 /// Calculate the signed area of a polygon. A Clockwise winding gives positive area.
-/// This is probably backwards from what you expect, but matches Chipmunk's the winding for poly shapes.
-cpFloat cpAreaForPoly(const int numVerts, const cpVect *verts);
+/// This is probably backwards from what you expect, but matches
+/// Chipmunk's the winding for poly shapes.
+
+// making custom version of this with float* instead of cpVect*
+// (which casts, no compile warnings)
+// cpFloat cpAreaForPoly(const int numVerts, const cpVect *verts);
 
 /// Calculate the natural centroid of a polygon.
-cpVect cpCentroidForPoly(const int numVerts, const cpVect *verts);
+// custom signature:
+// cpVect cpCentroidForPoly(const int numVerts, const cpVect *verts);
 
 /// Center the polygon on the origin. (Subtracts the centroid of the polygon from each vertex)
 void cpRecenterPoly(const int numVerts, cpVect *verts);

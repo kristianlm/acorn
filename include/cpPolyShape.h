@@ -23,19 +23,23 @@
 /// @{
 
 /// @private
-typedef struct cpPolyShapeAxis {
-	cpVect n;
-	cpFloat d;
-} cpPolyShapeAxis;
+/* typedef struct cpPolyShapeAxis { */
+/* 	cpVect n; */
+/* 	cpFloat d; */
+/* } cpPolyShapeAxis; */
+
+typedef struct cpPolyShapeAxis cpPolyShapeAxis
 
 /// @private
-typedef struct cpPolyShape {
-	cpShape shape;
+/* typedef struct cpPolyShape { */
+/* 	cpShape shape; */
 	
-	int numVerts;
-	cpVect *verts, *tVerts;
-	cpPolyShapeAxis *axes, *tAxes;
-} cpPolyShape;
+/* 	int numVerts; */
+/* 	cpVect *verts, *tVerts; */
+/* 	cpPolyShapeAxis *axes, *tAxes; */
+/* } cpPolyShape */;
+
+typedef struct cpPolyShape cpPolyShape;
 
 /// Allocate a polygon shape.
 cpPolyShape* cpPolyShapeAlloc(void);

@@ -26,14 +26,15 @@
 typedef struct cpShapeClass cpShapeClass;
 
 /// Segment query info struct.
-typedef struct cpSegmentQueryInfo {
-	/// The shape that was hit, NULL if no collision occured.
-	cpShape *shape;
-	/// The normalized distance along the query segment in the range [0, 1].
-	cpFloat t;
-	/// The normal of the surface hit.
-	cpVect n;
-} cpSegmentQueryInfo;
+typedef struct cpSegmentQueryInfo cpSegmentQueryInfo
+/* { */
+/* 	/// The shape that was hit, NULL if no collision occured. */
+/* 	cpShape *shape; */
+/* 	/// The normalized distance along the query segment in the range [0, 1]. */
+/* 	cpFloat t; */
+/* 	/// The normal of the surface hit. */
+/* 	cpVect n; */
+/* } cpSegmentQueryInfo */;
 
 /// @private
 typedef enum cpShapeType{
@@ -49,59 +50,59 @@ typedef cpBool (*cpShapePointQueryImpl)(cpShape *shape, cpVect p);
 typedef void (*cpShapeSegmentQueryImpl)(cpShape *shape, cpVect a, cpVect b, cpSegmentQueryInfo *info);
 
 /// @private
-struct cpShapeClass {
-	cpShapeType type;
+/* struct cpShapeClass { */
+/* 	cpShapeType type; */
 	
-	cpShapeCacheDataImpl cacheData;
-	cpShapeDestroyImpl destroy;
-	cpShapePointQueryImpl pointQuery;
-	cpShapeSegmentQueryImpl segmentQuery;
-};
+/* 	cpShapeCacheDataImpl cacheData; */
+/* 	cpShapeDestroyImpl destroy; */
+/* 	cpShapePointQueryImpl pointQuery; */
+/* 	cpShapeSegmentQueryImpl segmentQuery; */
+/* }; */
 
-/// Opaque collision shape struct.
-struct cpShape {
-  //	CP_PRIVATE(const cpShapeClass *klass); TODO: this may cause
-  //	trouble. our bindings offer make-cpShape functions which would
-  //	initialize only a portion of the fields. when we compile,
-  //	however, we use the real struct for cpShape (this is only used
-  //	during chicken-bind phase) so it shouldn't be too bad.
+/* /// Opaque collision shape struct. */
+/* struct cpShape { */
+/*   //	CP_PRIVATE(const cpShapeClass *klass); TODO: this may cause */
+/*   //	trouble. our bindings offer make-cpShape functions which would */
+/*   //	initialize only a portion of the fields. when we compile, */
+/*   //	however, we use the real struct for cpShape (this is only used */
+/*   //	during chicken-bind phase) so it shouldn't be too bad. */
 	
-	/// The rigid body this collision shape is attached to.
-	cpBody *body;
+/* 	/// The rigid body this collision shape is attached to. */
+/* 	cpBody *body; */
 
-	/// The current bounding box of the shape.
-	cpBB bb;
+/* 	/// The current bounding box of the shape. */
+/* 	cpBB bb; */
 	
-	/// Sensor flag.
-	/// Sensor shapes call collision callbacks but don't produce collisions.
-	cpBool sensor;
+/* 	/// Sensor flag. */
+/* 	/// Sensor shapes call collision callbacks but don't produce collisions. */
+/* 	cpBool sensor; */
 	
-	/// Coefficient of restitution. (elasticity)
-	cpFloat e;
-	/// Coefficient of friction.
-	cpFloat u;
-	/// Surface velocity used when solving for friction.
-	cpVect surface_v;
+/* 	/// Coefficient of restitution. (elasticity) */
+/* 	cpFloat e; */
+/* 	/// Coefficient of friction. */
+/* 	cpFloat u; */
+/* 	/// Surface velocity used when solving for friction. */
+/* 	cpVect surface_v; */
 
-	/// User definable data pointer.
-	/// Generally this points to your the game object class so you can access it
-	/// when given a cpShape reference in a callback.
-	cpDataPointer data;
+/* 	/// User definable data pointer. */
+/* 	/// Generally this points to your the game object class so you can access it */
+/* 	/// when given a cpShape reference in a callback. */
+/* 	cpDataPointer data; */
 	
-	/// Collision type of this shape used when picking collision handlers.
-	cpCollisionType collision_type;
-	/// Group of this shape. Shapes in the same group don't collide.
-	cpGroup group;
-	// Layer bitmask for this shape. Shapes only collide if the bitwise and of their layers is non-zero.
-	cpLayers layers;
+/* 	/// Collision type of this shape used when picking collision handlers. */
+/* 	cpCollisionType collision_type; */
+/* 	/// Group of this shape. Shapes in the same group don't collide. */
+/* 	cpGroup group; */
+/* 	// Layer bitmask for this shape. Shapes only collide if the bitwise and of their layers is non-zero. */
+/* 	cpLayers layers; */
 	
-	/* CP_PRIVATE(cpSpace *space); */
+/* 	/\* CP_PRIVATE(cpSpace *space); *\/ */
 	
-	/* CP_PRIVATE(cpShape *next); */
-	/* CP_PRIVATE(cpShape *prev); */
+/* 	/\* CP_PRIVATE(cpShape *next); *\/ */
+/* 	/\* CP_PRIVATE(cpShape *prev); *\/ */
 	
-	/* CP_PRIVATE(cpHashValue hashid); */
-};
+/* 	/\* CP_PRIVATE(cpHashValue hashid); *\/ */
+/* }; */
 
 /// Destroy a shape.
 void cpShapeDestroy(cpShape *shape);
@@ -179,12 +180,13 @@ static inline cpFloat cpSegmentQueryHitDist(const cpVect start, const cpVect end
 /// @defgroup cpCircleShape cpCircleShape
 
 /// @private
-typedef struct cpCircleShape {
-	cpShape shape;
+typedef struct cpCircleShape cpCircleShape
+/* { */
+/* 	cpShape shape; */
 	
-	cpVect c, tc;
-	cpFloat r;
-} cpCircleShape;
+/* 	cpVect c, tc; */
+/* 	cpFloat r; */
+/* } cpCircleShape */;
 
 /// Allocate a circle shape.
 cpCircleShape* cpCircleShapeAlloc(void);
@@ -207,15 +209,16 @@ void cpCircleShapeSetRadius(cpShape *shape, cpFloat radius);
 /// @defgroup cpSegmentShape cpSegmentShape
 
 /// @private
-typedef struct cpSegmentShape {
-	cpShape shape;
+typedef struct cpSegmentShape cpSegmentShape
+/* { */
+/* 	cpShape shape; */
 	
-	cpVect a, b, n;
-	cpVect ta, tb, tn;
-	cpFloat r;
+/* 	cpVect a, b, n; */
+/* 	cpVect ta, tb, tn; */
+/* 	cpFloat r; */
 	
-	cpVect a_tangent, b_tangent;
-} cpSegmentShape;
+/* 	cpVect a_tangent, b_tangent; */
+/* } cpSegmentShape */;
 
 /// Allocate a segment shape.
 cpSegmentShape* cpSegmentShapeAlloc(void);
