@@ -1,4 +1,4 @@
-
+(use srfi-69)
 ;;; shape properties helper functions
 
 (define (shape-get-type shape)
@@ -9,6 +9,22 @@
                       (,(foreign-value "CP_SEGMENT_SHAPE" int) . segment)
                       (,(foreign-value "CP_POLY_SHAPE" int) . poly))))))
 
+
+
+;; added property: density
+;; this is a conveniency property added to all shapes
+;; so that mass and intertia can be automatically calculated
+;; on all bodies.
+;; TODO: remove shapes from hash-table when space is freed
+(declare (hide *space-densities*))
+(define *space-densities* (make-hash-table))
+
+(define (shape-set-density shape value)
+  (hash-table-update!/default
+   *space-densities* shape (lambda _ value) #f))
+
+(define (shape-get-density shape)
+  (hash-table-ref/default *space-densities* shape #f))
 (define (poly-shape-get-vertices shape)
   (map (compose
         vect->list
@@ -88,7 +104,8 @@
                  (lambda (l) (cond
                          ((string? l) (string->number (conc "#b" l)))
                          ((list? l) (layers->mask l))
-                         (else l))))))
+                         (else l))))
+         density))
 
     (define-info-supporters
       circle-shape-properties circle-shape-properties-set!
