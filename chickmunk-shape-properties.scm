@@ -31,20 +31,14 @@
         (cut poly-shape-get-vert shape <>))
        (iota (poly-shape-get-num-verts shape))) )
 
-(define (poly-shape-set-vertices shape verts)
+(define (poly-shape-set-vertices shape v)
   ;; ((1 2) (2 3)) ==> (1 2 2 3)
-  (define (flatten verts)
-    (reverse
-     (fold (lambda (e s)
-             (cons (second e)
-                   (cons (first e) s)))
-           '() verts)))
-
-  ((foreign-lambda* void (((c-pointer "cpShape") poly)
-                     (int num_verts)
-                     (f32vector verts))
-               "cpPolyShapeSetVerts(poly, num_verts, (cpVect*)verts, cpvzero);")
-   shape (length verts) (list->f32vector (flatten verts))))
+  (let ([vv (convex-hull (verts v))])
+   ((foreign-lambda* void (((c-pointer "cpShape") poly)
+                           (int num_verts)
+                           (f32vector verts))
+                     "cpPolyShapeSetVerts(poly, num_verts, (cpVect*)verts, cpvzero);")
+    shape (fx/ (f32vector-length vv) 2) vv)))
 
 
 (define (segment-shape-get-endpoints shape)
