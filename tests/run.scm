@@ -10,9 +10,14 @@
 (test-group
  "chipmunk vector opertations"
 
- (test-assert "cpVect return type" (blob=? '#${0000000000000000}
-                                           (locative->object (vadd (v -1.5 1.5)
-                                                                   (v 1.5 -1.5)))) ))
+ (test-assert "vadd" (equal? (v 0.0 0.0)
+                             (vadd (v -1.5 1.5)
+                                   (v 1.5 -1.5))) )
+
+ (test-assert "vnormalize" (equal? (v 0.0 1.0)
+                                   (vnormalize (vadd (v 0.0 100)
+                                                     (v 0.0 29)))) ))
+
 
 (test-group
  "raw getters and setters"
