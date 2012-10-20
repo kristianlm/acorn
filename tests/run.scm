@@ -8,6 +8,13 @@
 (define segment (chickmunk#segment-shape-new body (v -1 -1) (v 1 1) 33))
 
 (test-group
+ "chipmunk vector opertations"
+
+ (test-assert "cpVect return type" (blob=? '#${0000000000000000}
+                                           (locative->object (vadd (v -1.5 1.5)
+                                                                   (v 1.5 -1.5)))) ))
+
+(test-group
  "raw getters and setters"
  (test-group
   "body"
