@@ -21,7 +21,7 @@ Have a look at the examples for a quick introduction.
 ## Requirements
 
 * [Chicken Scheme]
-* [chicken-bind], version 1.0
+* Newest version of [this](https://github.com/kristianlm/chicken-bind) chicken-bind
 * [Chipmunk 6][Chipmunk], configured with CP_USE_DOUBLES=0. I'm using version 6.0.3.
 
 I couldn't figure out how to add `CP_USE_DOUBLES=0` to the preprocessor from the command line, so I did this:
