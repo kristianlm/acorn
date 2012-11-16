@@ -33,7 +33,6 @@
   (lambda (x)
     (match (strip-syntax x)
       (('foreign-lambda* rtype argdefs body)
-       (pp x)
        (let* ([arg-structnames (map (compose foreign-type-struct-name car) argdefs) ]
               [wrapped-cpVects (map (lambda (adef sname)
                                       (if (equal? sname "cpVect")
