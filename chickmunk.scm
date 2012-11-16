@@ -42,6 +42,9 @@
 
 (define vzero (v 0 0))
 
+(define angle->v vforangle)
+(define v* vmult)
+
 ;; neat little bugger:
 ;; expand any macros within lst once
 ;; (expand ...) does this only on first form
