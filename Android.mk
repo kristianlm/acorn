@@ -1,3 +1,6 @@
+# This is a makefile which can be used to compile chickmunk for Android.
+# You'll also need an Android-build for chipmunk. You can find a 
+# suggestion of how to do that here: https://gist.github.com/2628615
 
 LOCAL_HOME := $(dir $(lastword $(MAKEFILE_LIST)))
 
