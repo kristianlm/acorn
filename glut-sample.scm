@@ -78,7 +78,7 @@
     ([right]                            ; select a body
      (set! cursor-pos2 cursor-pos)
      (define shapes (chickmunk#space-point-query space (list->vect cursor-pos) #xFF 0))
-     (set! *body-sel* (map shape-body shapes)))
+     (set! *body-sel* (map shape-get-body shapes)))
     ([wheel-down] (set! *scale* (map (cut * <> 0.9) *scale*)))
     ([wheel-up] (set! *scale* (map (cut / <> 0.9) *scale*))))
   
