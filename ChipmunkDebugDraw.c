@@ -64,6 +64,17 @@ const float SHAPE_ALPHA = 196.0/255.0;
 
 float ChipmunkDebugDrawPointLineScale = 1.0;
 
+
+static inline Color RGBAColor(float r, float g, float b, float a){
+	Color color = {r, g, b, a};
+	return color;
+}
+
+static inline Color LAColor(float l, float a){
+	Color color = {l, l, l, a};
+	return color;
+}
+
 static Color
 ColorFromHash(cpHashValue hash, float alpha)
 {

@@ -24,16 +24,6 @@ typedef struct Color {
 	float r, g, b, a;
 } Color;
 
-static inline Color RGBAColor(float r, float g, float b, float a){
-	Color color = {r, g, b, a};
-	return color;
-}
-
-static inline Color LAColor(float l, float a){
-	Color color = {l, l, l, a};
-	return color;
-}
-
 extern float ChipmunkDebugDrawPointLineScale;
 // obs! this is defined in chipmunk_types but we can't
 // redifine other stuff from there.
