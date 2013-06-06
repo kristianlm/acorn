@@ -1,7 +1,7 @@
 
 
 (module chickmunk *
-(import chicken scheme foreign bind)
+(import chicken scheme foreign)
 (use srfi-4 srfi-1 data-structures lolevel)
 
 #>
