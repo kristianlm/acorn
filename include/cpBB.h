@@ -24,9 +24,11 @@
 /// @{
 
 /// Chipmunk's axis-aligned 2D bounding box type. (left, bottom, right, top)
-typedef struct cpBB{
-	cpFloat l, b, r ,t;
-} cpBB;
+typedef struct cpBB
+/* { */
+/* 	cpFloat l, b, r ,t; */
+/* } */
+ cpBB;
 
 /// Convenience constructor for cpBB structs.
 static inline cpBB cpBBNew(const cpFloat l, const cpFloat b, const cpFloat r, const cpFloat t)

@@ -138,8 +138,8 @@
        (define ,set-info-name (make-info-setter ,setter-prefix ,spec)))))
 
 ;; convenience functions for cpVect struct -> list
-(define v.x vect-x)
-(define v.y vect-y)
+(define (v.x v) (f32vector-ref v 0))
+(define (v.y v) (f32vector-ref v 1))
 
 ;; TODO: find out which one is faster
 ;; (vect-x ...) casts f32vector to cpVect
@@ -147,7 +147,7 @@
 ;;   (list (f32vector-ref vect 0)
 ;;         (f32vector-ref vect 1)))
 (define (vect->list vect)
-  (list (vect-x vect) (vect-y vect)))
+  (list (v.x vect) (v.y vect)))
 
 (define (list->vect pos-tuple)
   (v (car pos-tuple) (cadr pos-tuple)))
