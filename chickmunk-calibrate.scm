@@ -17,8 +17,7 @@
 
 (define (poly-shape-get-centroid poly)
   (assert (eq? 'poly (shape-get-type poly)))
-  (centroid-for-poly (poly-shape-get-num-verts poly)
-                     (apply f32vector (flatten (poly-shape-get-vertices poly)))))
+  (centroid-for-poly (apply f32vector (flatten (poly-shape-get-vertices poly)))))
 
 (define (circle-shape-get-centroid circle)
   (assert (eq? 'circle (shape-get-type circle)))

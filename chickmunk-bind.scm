@@ -23,11 +23,17 @@
               "return(cpAreaForPoly(numVerts, (cpVect*)verts));"))
 
 (define centroid-for-poly
-  (foreign-safe-lambda* scheme-object ((int numVerts)
-                          (f32vector verts))
-                   "
-cpVect pos = cpCentroidForPoly(numVerts, (cpVect*)verts);
-return(make_f32vector2d(pos.x, pos.y));"))
+  (lambda (verts)
+    (let ((dest (make-f32vector 2)))
+      ((foreign-safe-lambda* void ((f32vector destination)
+                                   (int numVerts)
+                                   (f32vector verts))
+                             "
+*((cpVect*)destination) = cpCentroidForPoly(numVerts, (cpVect*)verts);")
+       dest
+       (f32vector-length verts)
+       verts)
+      dest)))
 
 (define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
 (define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
