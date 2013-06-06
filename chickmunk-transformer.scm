@@ -69,7 +69,6 @@
 ;; and cast & dereference from C.
 (begin
   (define (f32struct-arg-transformer x rename)
-    (pp x)
     (match x
       ;; return-type is a cpVect, need to convert
       ((foreign-lambda* rtype args body)
