@@ -9,7 +9,7 @@
       (let* ([r (make-f32vector (f32vector-length verts))]
              [new-length
               (foreign-convex-hull (fx/ (f32vector-length verts) 2) ;; numVerts
-                                   verts r
+                                   (location verts) (location r)
                                    #f 0.0)])
         (subf32vector r 0 (fx* 2 new-length))))))
 
