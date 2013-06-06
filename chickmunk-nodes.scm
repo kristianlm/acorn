@@ -83,6 +83,7 @@
       (body-calibrate body default-density))
   (list body shapes))
 
+;; TODO: clean API, space-add should only add single body
 ;; add one or more bodies to space
 (define (space-add space graph #!optional (default-density #f))
   (if (eq? 'body (car graph))
