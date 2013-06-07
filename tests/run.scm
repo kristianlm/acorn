@@ -138,3 +138,5 @@
                               (endpoints ((12.0 23.0) (45.0 67.0)))
                               (radius 414.0))
                             (shape-properties segment))))
+
+;; TODO: add test for centroid-for-poly and friends
