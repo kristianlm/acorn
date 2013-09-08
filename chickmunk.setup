@@ -15,7 +15,8 @@
 ;;chickmunk-draw
 (compile -s chickmunk-draw.scm -lchipmunk
          ChipmunkDebugDraw.c 
-         -C --std=c99 -C -DCP_USE_DOUBLES=0
+         -C --std=gnu99
+         -C -DCP_USE_DOUBLES=0
          -J)
 
 (compile -s chickmunk-draw.import.scm)
