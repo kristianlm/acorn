@@ -1,4 +1,4 @@
-
+;; -*- scheme -*-
 
 ;; chickmunk
 (compile -s -lchipmunk chickmunk.scm
