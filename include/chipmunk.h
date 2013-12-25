@@ -154,7 +154,7 @@ cpFloat cpMomentForBox(cpFloat m, cpFloat width, cpFloat height);
 cpFloat cpMomentForBox2(cpFloat m, cpBB box);
 
 // as of version 6.0.3, we can make convex hulls.
-// this is rewritten in chickmunk.scm
+// this is rewritten in acorn.scm
 int cpConvexHull(int count, cpVect *verts, cpVect *result, int *first, cpFloat tol);
 /* //@} */
 

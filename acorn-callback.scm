@@ -12,7 +12,7 @@
   (let ([callback-name (cadr x)]
         [foreign-lambda-call (caddr x)])
     `(begin
-      (if *callback-proc* (error "chickmunk: nested callbacks not supported"))
+      (if *callback-proc* (error "acorn: nested callbacks not supported"))
       (set! *callback-proc* ,callback-name)
       (set! *exception* #f)
       ,foreign-lambda-call

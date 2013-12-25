@@ -1,4 +1,4 @@
-;;; Small testbed for Chickmunk
+;;; Small testbed for Acorn
 ;;;
 ;;; Starts a glut main-loop in a different thread
 ;;; so the REPL is still available
@@ -6,8 +6,8 @@
 ;;; Before running this you should install glut-sandbox:
 ;;; cd glut-sandbox ; chicken-install
 
-(use chickmunk
-     chickmunk-draw gl glut glu
+(use acorn
+     acorn-draw gl glut glu
      apropos
      glut-sandbox)
 
@@ -77,7 +77,7 @@
      (for-each (cut body-set-pos <> (list->vect cursor-pos)) *body-sel*))
     ([right]                            ; select a body
      (set! cursor-pos2 cursor-pos)
-     (define shapes (chickmunk#space-point-query space (list->vect cursor-pos) #xFF 0))
+     (define shapes (acorn#space-point-query space (list->vect cursor-pos) #xFF 0))
      (set! *body-sel* (map shape-get-body shapes)))
     ([wheel-down] (set! *scale* (map (cut * <> 0.9) *scale*)))
     ([wheel-up] (set! *scale* (map (cut / <> 0.9) *scale*))))
@@ -94,7 +94,7 @@
 (set-on-mouse (lambda args (apply on-mouse args)))
 
 (glut-sandbox-start)
-;; chickmunk-draw requires client-state to be enabled
+;; acorn-draw requires client-state to be enabled
 ;; must be set after glut main-loop starts
 (gl:EnableClientState gl:VERTEX_ARRAY)
 

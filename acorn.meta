@@ -5,4 +5,4 @@
  (needs bind)
  (test-depends test)
  (category data)
- (files "chickmunk.scm" "chickmunk.setup"))
+ (files "acorn.scm" "acorn.setup"))

@@ -1,11 +1,11 @@
-(use chickmunk test)
+(use acorn test)
 
 
 (define space (space-new))
 (define body (body-new 5 6))
 (define circle (circle-shape-new body 3 (v 31 32)))
 (define box (box-shape-new body 22 44))
-(define segment (chickmunk#segment-shape-new body (v -1 -1) (v 1 1) 33))
+(define segment (acorn#segment-shape-new body (v -1 -1) (v 1 1) 33))
 
 (test-group
  "chipmunk vector opertations"
@@ -24,7 +24,7 @@
  (test-group
   "body"
              (test 5.0 (body-get-mass body))
-             (test 6.0 (chickmunk#body-get-moment body))
+             (test 6.0 (acorn#body-get-moment body))
 
              (body-set-mass body 8)
              (test 8.0 (body-get-mass body))

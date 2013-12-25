@@ -2,16 +2,16 @@
 
 (begin-for-syntax
  (import chicken)
- (include "chickmunk-transformer.scm"))
+ (include "acorn-transformer.scm"))
 
 ;; hack! if we don't have this, we get:
 ;; Warning: reference to possibly unbound identifier `transformer',
 ;; even though it should only be referenced at compile-time
-(define chickmunk-transformer (void))
+(define acorn-transformer (void))
 
 (bind-rename/pattern "^cp" "")
 (bind-rename/pattern "make-cp" "make")
-(bind-options default-renaming: "" foreign-transformer: chickmunk-transformer)
+(bind-options default-renaming: "" foreign-transformer: acorn-transformer)
 (bind-include-path "./include")
 (bind-include-path "./include/constraints/")
 (bind-file "./include/chipmunk.h")

@@ -1,4 +1,4 @@
-(use chickmunk srfi-1 extras)
+(use acorn srfi-1 extras)
 
 
 (define space

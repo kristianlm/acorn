@@ -1,5 +1,5 @@
 
-;;; Chickmunk component for adding bodies and shapes their shapes
+;;; Acorn component for adding bodies and shapes their shapes
 ;;; into a space using convenient tree-structured lists.
 
 ;;; Terminology is still being established. The idea is that a node is

@@ -1,6 +1,6 @@
 
 
-(module chickmunk *
+(module acorn *
 (import chicken scheme foreign)
 (use srfi-4 srfi-1 data-structures lolevel)
 
@@ -11,7 +11,7 @@
 #include <chipmunk/chipmunk_unsafe.h>
 <#
 
-(include "chickmunk-bind.scm")
+(include "acorn-bind.scm")
 
 ;; TODO: redefine make-vect to allocate scheme-object, not malloc
 ;;(define v make-vect)
@@ -211,10 +211,10 @@
 
 
 
-(include "chickmunk-calibrate.scm")
-(include "chickmunk-shape-properties.scm")
-(include "chickmunk-nodes.scm")
-(include "chickmunk-callback.scm")
+(include "acorn-calibrate.scm")
+(include "acorn-shape-properties.scm")
+(include "acorn-nodes.scm")
+(include "acorn-callback.scm")
 
 ;; TODO: set-finalizer on space object to free it automatically
 

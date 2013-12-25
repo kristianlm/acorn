@@ -1,4 +1,4 @@
-(use chickmunk)
+(use acorn)
 
 (define space
   (nodes->space `(space ()
