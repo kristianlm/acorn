@@ -8,11 +8,14 @@ Give your chicken some physics! This API currently follows the
 [original C-API](http://chipmunk-physics.net/documentation.php) closely, 
 which thus is probably your best source for information.
 
-Chickmunk should provide bindings to all C functions and thus 
-all parts of Chipmunk (bodies, shapes, constraints)
-should be accessible.
+This is an alpha-release, however, Acorn provides bindings to most C
+functions of Chipmunk. Bodies, shapes and constraints should be
+available.
+
+There is still much room for improvement and contributions are
+welcome.
  
-It also adds:
+Acorn adds to Chipmunk:
 * properties: shape-properties, shape-properties-set!, body-properties etc
 * nodes: space->nodes and nodes->space
 
@@ -21,25 +24,18 @@ Have a look at the examples for a quick introduction.
 ## Requirements
 
 * [Chicken Scheme]
-* Newest version of [chicken-bind](http://wiki.call-cc.org/eggref/4/bind), do `chicken-install -s bind`
-* [Chipmunk 6][Chipmunk], configured with CP_USE_DOUBLES=0. I'm using version 6.1.5.
+* Newest version of [chicken-bind](http://wiki.call-cc.org/eggref/4/bind)
+  Because we're using `chicken-bind`'s adapter feature. Do
+  `chicken-install -s bind` to reinstall.
 
-I couldn't figure out how to add `CP_USE_DOUBLES=0` to the preprocessor from the command line, so I did this:
+The sources of Chipmunk 6.2.1 is embedded in the egg for convenience.
+If you want to build against a different version, see `acorn.setup`.
 
-```diff
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index ea9d0fd..6915b44 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -37 +37 @@ endif()
--set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99") # always use gnu99
-+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -lm -DCP_USE_DOUBLES=0") # always use gnu99
-```
 ## Installing
 
 ```bash
-$ git clone https://github.com/kristianlm/chickmunk
-$ cd chickmunk
+$ git clone https://github.com/kristianlm/acorn
+$ cd acorn
 $ chicken-install -s # or try with sudo
 ```
 
@@ -48,6 +44,7 @@ $ chicken-install -s # or try with sudo
 Nodes provide a convenient way to add shapes and bodies to a space. These two are equivalent:
 
 ```scheme
+(use acorn)
 (space-add space
            `((body ((mass 10))
                    (circle (radius 0.2)
@@ -66,7 +63,7 @@ Nodes provide a convenient way to add shapes and bodies to a space. These two ar
 ## Examples
 
 ```scheme
-(use chickmunk)
+(use acorn)
 (pp (body-properties (body-new 1 1)))
   ===>
   ((sleeping 0)
@@ -86,7 +83,7 @@ Nodes provide a convenient way to add shapes and bodies to a space. These two ar
 ```
 
 ```scheme
-(use chickmunk)
+(use acorn)
 
 (define space
   (nodes->space
