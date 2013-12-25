@@ -1,20 +1,38 @@
 ;; -*- scheme -*-
 
+
+(define chipmunk-includes '(-I./chipmunk-6.2.1/include
+                            -I./chipmunk-6.2.1/include/chipmunk))
+
+(define chipmunk-sources `(,@chipmunk-includes
+                           ./chipmunk-6.2.1/src/*.c
+                           ./chipmunk-6.2.1/src/constraints/*.c))
 ;; chickmunk
-(compile -s -lchipmunk chickmunk.scm
+(compile -s
+         ;; compile embedded version of chipmunk 6.2.1
+         ,@chipmunk-sources
+         ;; or build chipmunk for your system and do this:
+         ;; -lchipmunk
+         chickmunk.scm
+         ;; the chipmunk sources won't compile without this:
+         -C --std=gnu99
+         ;; chipmunk configuration
          -C -DCP_USE_DOUBLES=0
          -C -DCP_ALLOW_PRIVATE_ACCESS=1
+         ;; build .import module
          -J)
-(compile -s chickmunk.import.scm )
 
-(install-extension 'chickmunk 
+(compile -s chickmunk.import.scm)
+
+(install-extension 'chickmunk
                    '("chickmunk.so" "chickmunk.import.so"))
 
 
 
 ;;chickmunk-draw
-(compile -s chickmunk-draw.scm -lchipmunk
-         ChipmunkDebugDraw.c 
+(compile -s chickmunk-draw.scm
+         ,@chipmunk-includes
+         ChipmunkDebugDraw.c
          -C --std=gnu99
          -C -DCP_USE_DOUBLES=0
          -J)
