@@ -37,3 +37,8 @@
 
 (define CP_USE_DOUBLES (foreign-value "CP_USE_DOUBLES" int))
 (define CP_SIZEOF_VECT (foreign-value "sizeof(struct cpVect)" int))
+
+(define space-new
+  (let ((%space-new space-new))
+    (lambda ()
+      (set-finalizer! (%space-new) (lambda (x) (space-free x))))))

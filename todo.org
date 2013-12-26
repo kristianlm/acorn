@@ -9,7 +9,7 @@
 ** Node interface
 *** TODO Signal error if property doesn't exist
 *** TODO Store constraints in (space->nodes ...)
-** TODO Automatically free space (set-finalizer!)
+** DONE Automatically free space (set-finalizer!)
 ** TODO Use stronger types, i.e. say if pointer is shape or body
 ** TODO Allow scheme-object as user-data
 ** TODO Make it possible to identify objects eg: (body-set-id b 'symbol) (space-find s 'symbol)
