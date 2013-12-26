@@ -103,16 +103,8 @@ typedef struct cpSpace cpSpace;
 
 #include "cpSpace.h"
 
-// Chipmunk 6.0.3
-#define CP_VERSION_MAJOR 6
-#define CP_VERSION_MINOR 0
-#define CP_VERSION_RELEASE 3
-
 /// Version string.
 extern const char *cpVersionString;
-
-/// @deprecated
-void cpInitChipmunk(void);
 
 /// Calculate the moment of inertia for a circle.
 /// @c r1 and @c r2 are the inner and outer diameters. A solid circle has an inner diameter of 0.
