@@ -83,12 +83,28 @@
 (-define-external-callback s_shape_callback ((c-pointer "cpShape") object))
 (-define-external-callback s_constraint_callback ((c-pointer "cpConstraint") object))
 
+(-define-external-callback s_body_shape_iterator
+                           ((c-pointer "cpBody") body)
+                           ((c-pointer "cpShape") shape))
+
+(-define-external-callback s_body_constraint_iterator
+                           ((c-pointer "cpBody") body)
+                           ((c-pointer "cpConstraint") shape))
+
+(-define-external-callback s_body_arbiter_iterator
+                           ((c-pointer "cpBody") body)
+                           ((c-pointer "cpArbiter") arbiter))
+
 ;; TODO: generate all these native functions from callback signature
 #>
 
 C_word s_body_callback(cpBody* object, C_word p);
 C_word s_constraint_callback(cpConstraint* object, C_word p);
 C_word s_shape_callback (cpShape* object, C_word p);
+
+C_word s_body_shape_iterator(cpBody* body, cpShape* object, C_word p);
+C_word s_body_constraint_iterator(cpBody* body, cpConstraint* object, C_word p);
+C_word s_body_arbiter_iterator(cpBody* body, cpArbiter* object, C_word p);
 
 void n_body_callback(cpBody *body, void *data) {
   C_word * d = (C_word*)data;
@@ -103,6 +119,21 @@ void n_shape_callback(cpShape *shape, void *data) {
 void n_constraint_callback(cpConstraint *subject, void *data) {
   C_word * d = (C_word*)data;
   *d = s_constraint_callback(subject, *d) ;
+}
+
+
+
+void n_body_shape_iterator(cpBody* body, cpShape* shape, void *data) {
+  C_word * d = (C_word*)data;
+  *d = s_body_shape_iterator(body, shape, *d) ;
+}
+void n_body_constraint_iterator(cpBody* body, cpConstraint* constraint, void *data) {
+  C_word * d = (C_word*)data;
+  *d = s_body_constraint_iterator(body, constraint, *d) ;
+}
+void n_body_arbiter_iterator(cpBody* body, cpArbiter* arb, void *data) {
+  C_word * d = (C_word*)data;
+  *d = s_body_arbiter_iterator(body, arb, *d) ;
 }
 <#
 
@@ -158,9 +189,12 @@ void n_constraint_callback(cpConstraint *subject, void *data) {
   (call-and-catch body object))
 
 ;; using same callback signature
-(define body-for-each-shape (make-safe-callbacks-space "cpBodyEachShape" "cb_body_each"))
-(define body-for-each-constraint (make-safe-callbacks-space "cpBodyEachConstraint" "cb_body_each"))
-(define body-for-each-arbiter (make-safe-callbacks-space "cpBodyEachArbiter" "cb_body_each"))
+(define body-for-each-shape (-safe-foreign-callback "n_body_shape_iterator" "cpBodyEachShape"
+                                                    ((c-pointer "cpBody") body)))
+(define body-for-each-constraint (-safe-foreign-callback "n_body_constraint_iterator" "cpBodyEachConstraint"
+                                                         ((c-pointer "cpBody") body)))
+(define body-for-each-arbiter (-safe-foreign-callback "n_body_arbiter_iterator" "cpBodyEachArbiter"
+                                                      ((c-pointer "cpBody") body)))
 
 
 ;; **********************
