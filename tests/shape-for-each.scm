@@ -23,6 +23,11 @@
                                               (test #t (equal? body (shape-get-body shape)))))))
 
 
-
+(test "test with gc"
+      "circle\nsegment\npoly\n"
+      (with-output-to-string
+        (lambda () (space-for-each-shape
+               space (lambda (shape) (gc #t)
+                        (print (shape-get-type shape)))))))
 
 
