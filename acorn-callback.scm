@@ -34,7 +34,7 @@
 ;;
 ;;   foreign-callback: string-name of foreign function to invoke as
 ;;   each callback (can be define-external)
-;; 
+;;
 ;; needs to call safe-lambda because callback may be external (back to scheme)
 (define-syntax (make-safe-callbacks-space x r t)
   (let ([foreign-each (cadr x)]
@@ -74,6 +74,7 @@
     ((_ fname args ...)
      (define-external (fname args ... (scheme-object -proc-))
        scheme-object
+       ;; TODO: handle errors here:
        (-argnames -proc- args ...)
        -proc-))))
 ;; ********************
@@ -142,7 +143,10 @@ void n_body_arbiter_iterator(cpBody* body, cpArbiter* arb, void *data) {
 
 ;; produce a lambda which calls the chipmunk query-function, but the
 ;; callback is stored and kept on the stack in case the GC moves the
-;; callback proc.
+;; callback proc. note that this macro assumes the last two arguments
+;; of all chipmunk's callback function are callback-handler and
+;; user-data.
+;;
 (define-syntax (-safe-foreign-callback x r t)
   (let* ([callback-handler (cadr x)]
          [foreign-query (caddr x)]
