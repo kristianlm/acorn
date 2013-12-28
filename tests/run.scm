@@ -140,4 +140,5 @@
                             (shape-properties segment))))
 
 ;; TODO: add test for centroid-for-poly and friends
-(include "shape-for-each.scm")
+(test-group "for-each"    (include "shape-for-each.scm"))
+(test-group "point-query" (include "point-query.scm"))
