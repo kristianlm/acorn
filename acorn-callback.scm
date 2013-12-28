@@ -147,13 +147,14 @@ void n_body_arbiter_iterator(cpBody* body, cpArbiter* arb, void *data) {
   (let* ([callback-handler (cadr x)]
          [foreign-query (caddr x)]
          [args (cdddr x)]
-         [arg-names (map cadr args)])
+         [arg-names (map cadr args)]
+         [arg-calls (map last args)])
     `(lambda (,@arg-names callback)
        ((foreign-safe-lambda* void (,@args (scheme-object cb))
                               ,(conc "C_word cb_holder = cb; "
                                      foreign-query ;; chipmunk query func
                                      (intersperse
-                                      `(,@arg-names
+                                      `(,@arg-calls
                                         ;; last two arguments are our
                                         ;; foreign-handler and a
                                         ;; pointer to a variable on
@@ -226,17 +227,12 @@ void n_body_arbiter_iterator(cpBody* body, cpArbiter* arb, void *data) {
   (call-and-catch shape))
 
 (define space-for-each-point-query
-  (lambda (space cpVect layers group callback)
-    (start-safe-callbacks callback
-                          ((foreign-safe-lambda* void (((c-pointer void) subject) ; space / body
-                                                       (f32vector point)
-                                                       (unsigned-int layers)
-                                                       (unsigned-int group)
-                                                       ((c-pointer void) foreign_callback))
-                                                 "cpSpacePointQuery"
-                                                 "(subject, *(cpVect*)point, layers, group"
-                                                 "   ,foreign_callback, (void*)0);")
-                           space cpVect layers group (foreign-value "cb_space_point_query" c-pointer)))))
+  (-safe-foreign-callback "n_shape_callback" "cpSpacePointQuery"
+                          ((c-pointer void) space)
+                          (f32vector point "*(cpVect*)point")
+                          (unsigned-int layers)
+                          (unsigned-int group)))
+
 
 ;; let's keep argument names for user convenience
 (define (space-point-query space point layers group)
