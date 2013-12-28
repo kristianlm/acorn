@@ -79,8 +79,8 @@
 ;; ********************
 ;; for-each callbacks for space (global bodies, shapes & constrains)
 
-(-define-external-callback s_body_callback ((c-pointer "cpBody") object))
-(-define-external-callback s_shape_callback ((c-pointer "cpShape") object))
+(-define-external-callback s_body_callback       ((c-pointer "cpBody") object))
+(-define-external-callback s_shape_callback      ((c-pointer "cpShape") object))
 (-define-external-callback s_constraint_callback ((c-pointer "cpConstraint") object))
 
 (-define-external-callback s_body_shape_iterator
@@ -100,7 +100,7 @@
 
 C_word s_body_callback(cpBody* object, C_word p);
 C_word s_constraint_callback(cpConstraint* object, C_word p);
-C_word s_shape_callback (cpShape* object, C_word p);
+C_word s_shape_callback(cpShape* object, C_word p);
 
 C_word s_body_shape_iterator(cpBody* body, cpShape* object, C_word p);
 C_word s_body_constraint_iterator(cpBody* body, cpConstraint* object, C_word p);
