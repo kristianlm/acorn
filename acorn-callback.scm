@@ -149,6 +149,8 @@ void n_body_arbiter_iterator(cpBody* body, cpArbiter* arb, void *data) {
          [args (cdddr x)]
          [arg-names (map cadr args)]
          [arg-calls (map last args)])
+    (assert (string? callback-handler))
+    (assert (string? foreign-query))
     `(lambda (,@arg-names callback)
        ((foreign-safe-lambda* void (,@args (scheme-object cb))
                               ,(conc "C_word cb_holder = cb; "
