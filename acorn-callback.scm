@@ -282,17 +282,12 @@ static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVec
   void
   (call-and-catch shape))
 
-(define (space-for-each-bb-query space bb layers group callback)
-  (start-safe-callbacks callback
-                        ((foreign-safe-lambda* void (((c-pointer "cpSpace") space)
-                                                ((c-pointer "cpBB") bb)
-                                                (unsigned-int layers)
-                                                (unsigned-int group))
-                                          "cpSpaceBBQuery("
-                                          "space, *bb, layers, group,"
-                                          "(cpSpaceBBQueryFunc)cb_space_bb_query,"
-                                          "(void*)0);")
-                         space bb layers group)))
+(define space-for-each-bb-query
+  (-safe-foreign-callback "n_shape_callback" "cpSpaceBBQuery"
+                          ((c-pointer "cpSpace") space)
+                          (f32vector bb "*(cpBB*)bb") ;; f32vctor-length assertion?
+                          (unsigned-int layers)
+                          (unsigned-int group)))
 
 (define (space-bb-query space bb layers group)
   ((make-callback->list-proc space-for-each-bb-query) space bb layers group))
