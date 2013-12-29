@@ -130,7 +130,7 @@
       (assert (eq? 'poly (shape-get-type poly)))
       (let ([verts (apply f32vector (flatten (poly-shape-get-vertices poly)))])
         (moment-for-poly mass (fx/ (f32vector-length verts) 2)
-                         verts (v 0 0) )))
+                         (location verts) (v 0 0) )))
 
     (define (segment-shape-get-moment segment mass)
       (assert (eq? 'segment (shape-get-type segment)))
