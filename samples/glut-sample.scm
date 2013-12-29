@@ -8,7 +8,6 @@
 
 (use acorn
      acorn-draw gl glut glu
-     apropos
      glut-sandbox)
 
 (define space (space-new))
@@ -93,10 +92,10 @@
 (set-on-draw (lambda () (on-draw)))
 (set-on-mouse (lambda args (apply on-mouse args)))
 
-(glut-sandbox-start)
+(define thread (glut-sandbox-start))
 ;; acorn-draw requires client-state to be enabled
 ;; must be set after glut main-loop starts
 (gl:EnableClientState gl:VERTEX_ARRAY)
 
-
+(thread-join! thread)
 
