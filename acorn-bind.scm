@@ -31,7 +31,7 @@
                              "
 *((cpVect*)destination) = cpCentroidForPoly(numVerts, (cpVect*)verts);")
        dest
-       (f32vector-length verts)
+       (/ (f32vector-length verts) 2)
        verts)
       dest)))
 

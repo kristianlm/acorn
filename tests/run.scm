@@ -139,6 +139,13 @@
                               (radius 414.0))
                             (shape-properties segment))))
 
+(test '(10.0 10.0)
+      (f32vector->list
+       (centroid-for-poly (f32vector  20 20
+                                      0  20
+                                      0  0
+                                      20 0))))
+
 ;; TODO: add test for centroid-for-poly and friends
 (test-group "for-each"    (include "shape-for-each.scm"))
 (test-group "point-query" (include "point-query.scm"))
