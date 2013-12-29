@@ -30,14 +30,16 @@
 
 
 ;;acorn-draw
-(compile -s acorn-draw.scm
+(compile -s acorn-draw/acorn-draw.scm
          ,@chipmunk-includes
-         ChipmunkDebugDraw.c
+         acorn-draw/ChipmunkDebugDraw.c
          -C --std=gnu99
          -C -DCP_USE_DOUBLES=0
          -J)
 
 (compile -s acorn-draw.import.scm)
 
-(install-extension 'acorn-draw
-                   '("acorn-draw.so" "acorn-draw.import.so"))
+(install-extension 'acorn
+                   '("acorn.so" "acorn.import.so"
+                     ("acorn-draw/acorn-draw.so" "acorn-draw.so")
+                     "acorn-draw.import.so"))

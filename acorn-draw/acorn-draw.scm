@@ -20,6 +20,6 @@
 (bind-options default-renaming: "" foreign-transformer: acorn-transformer)
 ;;acorn-draw#chipmunk-debug-draw-segment
 (bind-rename/pattern "^chipmunk-debug-" "")
-(bind-file "ChipmunkDebugDraw.h")
+(bind-file "acorn-draw/ChipmunkDebugDraw.h")
 
 )
