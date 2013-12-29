@@ -81,6 +81,9 @@
 
   (if (not static?)
       (body-calibrate body default-density))
+
+  (space-reindex-shapes-for-body space body)
+
   (list body shapes))
 
 ;; TODO: clean API, space-add should only add single body
