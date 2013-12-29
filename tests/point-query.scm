@@ -58,3 +58,16 @@
          (map  (lambda (x) (v x y))
                (iota 30 -15)))
        (iota 30 -15))))
+
+(test "space-bb-query"
+      '(poly circle)
+      (map shape-get-type (space-bb-query space (bbnew -15 -15 0 0) #xff 0)))
+
+
+(define (qs start end)
+  (map (lambda (args) `(,(shape-get-type (car args)) ,@(cdr args)))
+       (space-segment-query space start end #xff 0)))
+
+(test "space-segment-query cirlce" '((circle 0.25 0.0 1.0)) (qs (v 0 20) (v 0 0)))
+(test "space-segment-query poly" '((poly 1.0 -1.0 0.0)) (qs (v -20 -20) (v -13 -13)))
+

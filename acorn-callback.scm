@@ -96,6 +96,12 @@
                            ((c-pointer "cpBody") body)
                            ((c-pointer "cpArbiter") arbiter))
 
+(-define-external-callback s_space_seqment_func
+                           ((c-pointer "cpShape") shape)
+                           (float t)
+                           (float nx)
+                           (float ny))
+
 ;; TODO: generate all these native functions from callback signature
 #>
 
@@ -106,6 +112,8 @@ C_word s_shape_callback(cpShape* object, C_word p);
 C_word s_body_shape_iterator(cpBody* body, cpShape* object, C_word p);
 C_word s_body_constraint_iterator(cpBody* body, cpConstraint* object, C_word p);
 C_word s_body_arbiter_iterator(cpBody* body, cpArbiter* object, C_word p);
+
+C_word s_space_seqment_func(cpShape *shape, cpFloat t, cpFloat nx, cpFloat ny, C_word p);
 
 void n_body_callback(cpBody *body, void *data) {
   C_word * d = (C_word*)data;
@@ -135,6 +143,10 @@ void n_body_constraint_iterator(cpBody* body, cpConstraint* constraint, void *da
 void n_body_arbiter_iterator(cpBody* body, cpArbiter* arb, void *data) {
   C_word * d = (C_word*)data;
   *d = s_body_arbiter_iterator(body, arb, *d) ;
+}
+void n_space_seqment_func(cpShape *shape, cpFloat t, cpVect n, void *data) {
+  C_word * d = (C_word*)data;
+  *d = s_space_seqment_func(shape, t, n.x, n.y, *d) ;
 }
 <#
 
@@ -262,18 +274,14 @@ static void cb_space_segment_query_adapter(struct cpShape *shape, float t, cpVec
 
 
 
-(define (space-for-each-segment-query space start-point end-point layers group callback)
-  (start-safe-callbacks callback
-                        ((foreign-safe-lambda* void (((c-pointer "cpSpace") space)
-                                                ((c-pointer "cpVect") start_point)
-                                                ((c-pointer "cpVect") end_point)
-                                                (unsigned-int layers)
-                                                (unsigned-int group))
-                                          "cpSpaceSegmentQuery(space, *start_point, *end_point,"
-                                          "layers, group,"
-                                          "(cpSpaceSegmentQueryFunc)cb_space_segment_query_adapter,"
-                                          "(void*)0);")
-                         space start-point end-point layers group)))
+
+(define space-for-each-segment-query
+  (-safe-foreign-callback  "n_space_seqment_func" "cpSpaceSegmentQuery"
+                          ((c-pointer "cpSpace") space)
+                          (f32vector start_point "*(cpVect*)start_point")
+                          (f32vector end_point "*(cpVect*)end_point")
+                          (unsigned-int layers)
+                          (unsigned-int group)))
 
 
 (define (space-segment-query space start-point end-point layers group)
