@@ -37,11 +37,11 @@
 
 ;; TODO: this should probably be rewritted in C for speed
 (define (body-get-centroid body)
-  (v* (fold (lambda (shape r)
-              (vadd r (shape-get-centroid shape)))
-            (v 0 0)
-            (body-shapes body))
-      (/ 1.0 (length (body-shapes body)))))
+  (vmult (fold (lambda (shape r)
+                 (vadd r (shape-get-centroid shape)))
+               (v 0 0)
+               (body-shapes body))
+         (/ 1.0 (length (body-shapes body)))))
 
 
 
