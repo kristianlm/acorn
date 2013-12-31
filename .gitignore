@@ -6,7 +6,7 @@
 /acorn.import.scm
 /acorn-draw.import.scm
 /acorn-draw.import.so
-/acorn-draw.so
+/acorn-draw/acorn-draw.so
 /glut-sandbox/glut-sandbox.so
 /glut-sandbox/glut-sandbox.import.so
 /glut-sandbox/glut-sandbox.import.scm
