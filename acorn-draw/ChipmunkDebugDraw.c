@@ -25,7 +25,7 @@
 #include <limits.h>
 #include <string.h>
 
-#ifdef ANDROID
+#ifdef __ANDROID__
 #include <GLES/gl.h>
 #else
 #ifdef __APPLE__
