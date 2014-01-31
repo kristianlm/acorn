@@ -216,8 +216,6 @@
 (include "acorn-nodes.scm")
 (include "acorn-callback.scm")
 
-;; TODO: set-finalizer on space object to free it automatically
-
 ;; currently we only support 32-bit floats
 ;; make sure the chipmunk native library is
 ;; configured to use it.
