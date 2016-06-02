@@ -2,6 +2,15 @@
   [Chipmunk]: http://chipmunk-physics.net/
   [chicken-bind]:http://wiki.call-cc.org/eggref/4/bind
 
+
+
+# Obsolete
+
+Unfortunately, I don't have time to maintain this. The good news is that there a better solutions out there! I recommend that you check out [chicken-physics](https://github.com/pluizer/chicken-physics) and its dependency [chicken-chipmunk](https://github.com/pluizer/chicken-chipmunk) instead! Both of these are more feature-complete and "production ready". And they use the same underlying C-library (chipmunk).
+
+I'm leaving the rest of this Readme.md out for reference.
+
+
 # [Chicken Scheme] bindings for [Chipmunk]
 
 Give your chicken some physics! This API currently follows the 
